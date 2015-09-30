@@ -64,8 +64,8 @@ app.controller('MainCtrl', ['$scope', '$location', '$filter', 'MessageService', 
     };
 
     var getModulo = function(){
-      api.modulos.get($routeParams.hashid).success(function(data){
-          $scope.modulo = data[0];
+      api.modulos.get($routeParams.modulo).success(function(data){
+          $scope.modulo = data;
       });
     }
 
