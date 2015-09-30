@@ -1,0 +1,285 @@
+<div class="container-fluid">
+  <div class="fixed-margin">
+    <!-- <div class="container-fluid"> -->
+      <div class="panel panel-default user-panel">
+        <div class="panel-heading">
+          <h3>Configuração do módulo</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-2">
+              <ul class="nav nav-pills nav-stacked">
+                <li ng-class="{'active':tab===1}"><a ng-click="setTab(1)"><i class="fa fa-tachometer" style="margin-left: -5px;
+  margin-right: 5px;"></i> Geral</a></li>
+                <li ng-class="{'active':tab===2}"><a ng-click="setTab(2)"><i class="fa fa-database" style="margin-left: -5px;
+  margin-right: 5px;"></i> Fontes de dados</a></li>
+              </ul>
+            </div>
+            <div id="content" class="col-md-9">
+              <div id="geral" ng-if="tab===1">
+                <div class="form-group" style="margin-top:30px" ng-if="modulo.hash">
+                  <label>Código</label>
+                  <input type="text" class="form-control" ng-model="modulo.hash" readonly>
+                </div>
+                <div class="form-group" style="margin-top:30px">
+                  <label>Nome</label>
+                  <input type="text" class="form-control" ng-model="modulo.nome" required>
+                </div>
+                <div class="form-group" style="margin-top:30px">
+                  <label>Descrição</label>
+                  <textarea cols="3" rows="5" class="form-control" ng-model="modulo.descricao"></textarea>
+                </div>
+              </div>
+              <div id="fonte" ng-if="tab===2">
+                <div class="row" ng-if="!editaFonte">
+                  <div class="col-md-12">
+                    <div class="panel panel-body">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Nome</th>
+                            <th style="width: 20%;">Descrição</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="fonte in modulo.datasources track by $index" ng-hide="!modulo.datasources || modulo.datasources.length < 1">
+                            <td>
+                              <a href="" ng-click="edit(fonte)">{{fonte.name}}</a>
+                            </td>
+                            <td>{{fonte.description}}</td>
+                            <td><a class="btn btn-danger" ng-click="remove(fonte)"><i class="fa fa-trash-o"></i></a></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div ng-click="edit()" class="pontilhado" style="margin: 20px; text-align: center; color: #919191;" ng-show="!modulo.datasources || modulo.datasources.length < 1">
+                        <span >Clique para adicionar uma nova fonte de dados </span>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="well">
+                      <div class="pull-right">
+                        <a class="btn btn-default" ng-click="openTestFonteModal()">Testar Fonte</a>
+                        <a class="btn btn-primary" ng-click="edit()">Nova Fonte</a>
+                      </div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                </div>
+                <form name="fonteDadoForm" ng-if="editaFonte"  novalidate>
+                  <tabset> <tab> <tab-heading>Geral</tab-heading>
+                    <div class="form-group" style="margin-top:30px">
+                      <label>Nome</label>
+                      <input type="text" class="form-control" ng-model="fonte.name" required>
+                    </div>
+                    <div class="form-group" style="margin-top:30px">
+                      <label>Descrição</label>
+                      <textarea cols="3" rows="5" class="form-control" ng-model="fonte.description" ></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>URL</label>
+                      <input type="text" class="form-control" ng-model="fonte.url" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Método</label>
+                      <select class="form-control" ng-model="fonte.method" required>
+                        <option value="">Selecione o método de envio...</option>
+                        <option value="GET">GET</option>
+                        <option value="POST">POST</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Formato</label>
+                      <select class="form-control" ng-model="fonte.format" required>
+                        <option value="">Selecione o formato de envio...</option>
+                        <option value="JSON">JSON</option>
+                        <option value="x-www-form-urlencoded">x-www-form-urlencoded</option>
+                      </select>
+                    </div>
+                  </tab> <tab> <tab-heading>Header</tab-heading>
+                    <div class="row" style="margin-top:30px">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <input type="text" class="form-control" ng-model="header.key" placeholder="Chave" />
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <input type="text" class="form-control" ng-model="header.value" placeholder="Valor" />
+                        </div>
+                      </div>
+                      <div class="col-md-2" style="text-align: right;">
+                        <button class="btn btn-default" ng-disabled="!header.key || !header.value" ng-click="addHeader(header, fonte)">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <hr />
+                    <div style="margin-bottom: 10px; text-align: center; color: #919191;" ng-show="!fonte.header || fonte.header.length < 1">
+                      <span>Nenhum header cadastrado...</span>
+                    </div>
+                    <div class="tab-item-list" ng-repeat="header in fonte.header track by $index">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <input type="text" class="form-control" ng-model="header.key" placeholder="Chave" />
+                          </div>
+                        </div>
+                        <div class="col-md-5">
+                          <div class="form-group">
+                            <input type="text" class="form-control" ng-model="header.value" placeholder="Valor" />
+                          </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right;">
+                          <button class="btn btn-danger" ng-disabled="!header.key || !header.value" ng-click="removeHeader(header, fonte)">
+                            <i class="fa fa-trash-o"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </tab> <tab> <tab-heading>Filtros</tab-heading>
+                    <div ng-hide="!fonte.parameter || fonte.parameter.length < 1">
+                      <table class="table table-hover"  style="width: 92%; margin: 25px;">
+                        <thead>
+                          <tr>
+                            <th>Label</th>
+                            <th>Tipo</th>
+                            <th>Obrigatório?</th>
+                            <th>De (API)</th>
+                            <th>Para (Relatório)</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="param in fonte.parameter track by $index">
+                            <td>{{param.label}}</td>
+                            <td>{{param.type}}</td>
+                            <td>{{param.required === '1' ? 'Sim' : 'Não'}}</td>
+                            <td>{{param.from}}</td>
+                            <td>{{param.to}}</td>
+                            <td><button class="btn btn-sm btn-danger" ng-click="removeParameter(param, fonte)">
+                              <i class="fa fa-trash-o"></button>
+                            <button class="btn btn-sm btn-primary" ng-click="openFiltroModal(param)">
+                                <i class="fa fa-edit"></i>
+                            </button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div ng-click="openFiltroModal()" class="pontilhado" style="margin: 20px; text-align: center; color: #919191;" >
+                        <span>Clique para cadastrar um novo filtro</span>
+                      </div>
+                  </div>
+                    <div ng-click="openFiltroModal()" class="pontilhado" style="margin: 20px; text-align: center; color: #919191;" ng-show="!fonte.parameter || fonte.parameter.length < 1" >
+                      <span>Clique para cadastrar um novo filtro</span>
+                    </div>
+                  </tab> <tab> <tab-heading>Campos</tab-heading>
+                    <!-- Começa alteração modal-->
+
+
+                    <!-- Fim alteração modal-->
+                    <div ng-click="openCampoModal()" class="pontilhado" style="margin: 20px; text-align: center; color: #919191;" ng-show="!fonte.converter || fonte.converter.length < 1">
+                      <span >Clique para adicionar um novo campo </span>
+                    </div>
+                    <div class="tab-item-list">
+                      <table class="table table-hover" ng-hide="!fonte.converter || fonte.converter.length < 1" style="width: 92%; margin: 25px;">
+                        <thead>
+                          <tr>
+                            <th>Label</th>
+                            <th>Tipo</th>
+                            <th>De (API)</th>
+                            <th>Para (Relatório)</th>
+                            <th>Ações</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="converter in fonte.converter track by $index">
+                            <td>{{converter.label}}</td>
+                            <td>{{converter.type}}</td>
+                            <td>{{converter.from}}</td>
+                            <td>{{converter.to}}</td>
+                            <td><button class="btn btn-sm btn-danger" ng-click="removeConverter(converter, fonte)">
+                              <i class="fa fa-trash-o">
+                              </button>
+                              <button class="btn btn-sm btn-primary" ng-click="openCampoModal(converter)">
+                                <i class="fa fa-edit"></i>
+                            </button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <hr />
+                      <div ng-click="openCampoModal()" class="pontilhado" style="margin: 20px; text-align: center; color: #919191;" ng-hide="!fonte.converter || fonte.converter.length < 1">
+                        <span >Clique para adicionar um novo campo </span>
+                      </div>
+                      <div class="row" ng-show="converter.map">
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" ng-model="converter.key" placeholder="De (Chave)" />
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <input type="text" class="form-control" ng-model="converter.value" placeholder="De (Valor)" />
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <input type="text" class="form-control" ng-model="converter.to" placeholder="Para (Relatório)" />
+                          </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: right;">
+                          <div class="form-group">
+                            <button class="btn btn-danger" ng-click="removeConverter(converter, fonte)">
+                              <i class="fa fa-trash-o"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </tab> </tabset>
+                  <div class="well">
+                    <div class="pull-left">
+                      <button class="btn btn-default" ng-click="backDatasource();">
+                        <span class="fa fa-arrow-left"></span>
+                        Voltar
+                      </button>
+                    </div>
+                    <div class="pull-right">
+                      <button ng-show="fonte.id" class="btn btn-primary" ng-disabled="fonteDadoForm.$invalid" ng-click="update(fonte);">
+                        <span class="fa fa-check"></span>
+                        Salvar Alterações
+                      </button>
+                      <button ng-hide="fonte.id" class="btn btn-primary" ng-disabled="fonteDadoForm.$invalid" ng-click="save(fonte);">
+                        <span class="fa fa-check"></span>
+                        Salvar
+                      </button>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-footer" style="padding:30px;">
+          <div class="pull-left">
+            <button class="btn btn-default" ng-click="back();" style="margin-top: -25px;">
+              <span class="fa fa-arrow-left"></span>
+              Voltar
+            </button>
+          </div>
+          <div class="pull-right">
+            <button ng-show="modulo.id" class="btn btn-primary" ng-disabled="modulo.datasources.length < 1" ng-click="updateModulo(modulo, true);">
+              <span class="fa fa-check"></span>
+              Salvar Alterações no módulo
+            </button>
+            <button ng-hide="modulo.id" class="btn btn-primary" ng-disabled="modulo.datasources.length < 1" ng-click="saveModulo(modulo, true);">
+              <span class="fa fa-check"></span>
+              Salvar módulo
+            </button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
+</div>

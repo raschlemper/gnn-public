@@ -1,0 +1,15 @@
+<div class="fuelux">
+	<div class="wizard" data-initialize="wizard" id="myWizard">
+	  <ul class="steps">
+	    <li data-step="{{menu.ordem}}" ng-class="{active: isAtual(menu.ordem), completed: isCompleted(menu.ordem)}" ng-repeat="menu in configuracao" ng-disabled="true"  ng-click="updateAtual(menu.ordem)"><span class="badge">{{menu.ordem}}</span>{{menu.titulo}}<span class="chevron"></span></li>
+	  </ul>
+	  <div class="actions">
+	    <button type="button" class="btn btn-default btn-prev" ng-click="anterior()"><span class="glyphicon glyphicon-arrow-left"></span>Anterior</button>
+	    <button id="nextButton" type="button" class="btn btn-default btn-next" ng-click="proximo()" data-last="Finalizar" ng-disabled="!valid" ng-hide="atual === steps">Próximo<span class="glyphicon glyphicon-arrow-right"></span></button>
+	      {{atual}} / {{steps}}
+	  </div>
+	  <div class="step-content" ng-transclude>
+	  </div>
+	</div>
+</div>
+

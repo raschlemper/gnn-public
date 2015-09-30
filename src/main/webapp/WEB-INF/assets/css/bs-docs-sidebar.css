@@ -1,0 +1,72 @@
+.bs-docs-sidebar {
+    padding-left: 6px;
+    margin-top: 20px;
+    margin-bottom: 20px; 
+    height: auto;
+}
+/* all links */
+
+.bs-docs-sidebar .nav>li>a {
+    color: #2C3E50;
+    border-left: 4px solid transparent;
+    padding: 4px 5px;
+    font-size: 14px;
+    font-weight: 400;
+}
+/* nested links */
+
+.bs-docs-sidebar .nav .nav>li>a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+}
+/* active & hover links */
+
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>li>a:hover,
+.bs-docs-sidebar .nav>li>a:focus {
+    text-decoration: none;
+    background-color: #f5f5f5;
+    border-left-color: #2C3E50;
+    color: #2C3E50;
+    padding: 4px 8px;
+}
+/* all active links */
+
+.bs-docs-sidebar .nav>.active>a,
+.bs-docs-sidebar .nav>.active:hover>a,
+.bs-docs-sidebar .nav>.active:focus>a {
+    font-weight: 700;
+}
+/* nested active links */
+
+.bs-docs-sidebar .nav .nav>.active>a,
+.bs-docs-sidebar .nav .nav>.active:hover>a,
+.bs-docs-sidebar .nav .nav>.active:focus>a {
+    font-weight: 500;
+}
+/* hide inactive nested list */
+
+.bs-docs-sidebar .nav ul.nav {
+    display: none;
+}
+/* show active nested list */
+
+.bs-docs-sidebar .nav>.active>ul.nav {
+    display: block;
+}
+
+.icon-sidebar {
+    margin-right: 10px;
+}
+
+.bs-docs-sidebar-report {
+    height: 100%;
+    /*border-right: 1px solid #A5ABAD;*/
+    background-color: #ffffff;
+}
+
+.bs-docs-sidebar-border {
+    /*border-right: 1px solid #CCC;*/
+}

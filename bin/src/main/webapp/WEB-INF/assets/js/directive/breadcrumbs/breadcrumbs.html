@@ -1,0 +1,13 @@
+<ul class="breadcrumb breadcrumb-border without-margin">
+    <li class="dropdown" ng-repeat="list in lists">
+        <a class="dropdown-toggle" id="{{list.selected.name}}" data-toggle="dropdown" aria-expanded="true">
+            {{list.selected.value}}
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="{{list.selected.name}}">
+            <li role="presentation" ng-repeat="item in list.itens track by $index">
+            	<a role="menuitem" tabindex="-1" ng-click="setValue($index, list.id)">{{ item.value }}</a>
+            </li>
+        </ul>
+    </li>
+</ul>

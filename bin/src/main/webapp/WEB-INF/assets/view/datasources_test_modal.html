@@ -1,0 +1,38 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">Testar Fonte de Dados</h4>
+  </div>
+  <div class="modal-body">
+    <form name="fonteDadoTestForm" novalidate>
+      <div class="form-group">
+        <label>Fonte de Dados</label>
+        <select class="form-control" ng-model="fonte" ng-options="(fonte.description + ' (' + fonte.type + ')') for fonte in fontes | orderBy: 'description'" ng-change="loadParamFields(fonte)" required>
+          <option value="">Selecione a Fonte de Dados desejada</option>
+        </select>
+      </div>
+      <div class="form-group" ng-show="fonte.parameter && fonte.parameter.length > 0">
+        <label>Parâmetros</label>
+        <div ng-repeat="parameter in fonte.parameter track by $index">
+          <span style="width: 39%;display: inline-block;">{{ parameter.from }}</span>
+          <input type="text" class="form-control" ng-model="params[parameter.from]" placeholder="Valor"/>
+        </div>
+      </div>
+    </form>
+
+    <div ng-show="success">
+      <textarea ng-show="fonte.type == 'WEBSERVICE'" style="width: 96%;height: 140px;box-shadow: inset 0px 0px 10px #A6A6A6;">{{ msgSuccess }}</textarea>
+      <textarea style="width: 96%;height: 140px;box-shadow: inset 0px 0px 10px #A6A6A6;">{{ msgSuccessConverted }}</textarea>
+    </div>
+    <div ng-show="error" class="alert alert-danger">{{ msgError }}</div>
+  </div>
+
+  <div class="modal-footer">
+    <div class="pull-left">
+      <button class="btn btn-default" ng-click="close()"><i class="icon-arrow-left"></i> Voltar</button>
+    </div>
+    <div class="pull-right">
+      <button class="btn btn-primary" ng-click="test(fonte, params);" ng-disabled="!fonte || emAndamento || verifyParams(params)"><i class="icon-ok icon-white"></i> Testar</button>
+    </div>
+  </div>
+
+</div>

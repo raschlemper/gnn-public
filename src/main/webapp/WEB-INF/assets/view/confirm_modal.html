@@ -1,0 +1,19 @@
+<div>
+  <div class="modal-header">
+    <h4 class="modal-title">{{title}}</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-2 text-center" style="padding:10px;">
+        <i class="fa fa-3x"
+          ng-class="{'fa-check-circle text-success': defineType('success'), 'fa-info-circle text-primary': defineType('info'), 'fa-warning text-warning': defineType('warning'), 'fa-times-circle text-danger': defineType('danger')}"
+         ></i>
+      </div>
+      <div class="col-md-10" style="max-height: 300px; overflow: hidden; padding: 10px 10px 10px 20px;">{{message}}</div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Sim</button>
+    <button class="btn btn-default" ng-click="close()">Não</button>
+  </div>
+</div>

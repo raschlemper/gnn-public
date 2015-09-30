@@ -1,0 +1,61 @@
+textarea.form-control {
+  height: 150px;
+}
+
+.tab-content {
+  padding-top: 15px;
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 650px;
+    margin: 30px auto;
+  }
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
+  .modal-sm {
+    width: 400px;
+  }
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 900px;
+  }
+}
+
+.modal-header {
+  border-radius: 4px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.text-left {
+  text-align: left !important;
+}
+
+hr {
+  border-color: #DDDDDD;
+}
+
+.bg-warning {
+  background-color: #fcf8e3 !important;
+}
+
+.bg-white {
+  background-color: #FFFFFF !important;
+}
+
+th a {
+  color: #000000;
+}
+
+.panel-heading .btn {
+  margin-top: 3px;
+  margin-left: 5px;
+}
+
+.text-warning {
+  color: #FFC906;
+}

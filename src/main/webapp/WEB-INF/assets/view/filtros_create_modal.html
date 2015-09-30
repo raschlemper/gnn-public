@@ -1,0 +1,94 @@
+<div class="modal-header">
+  <h4 class="modal-title">Adicionar/Editar Filtro</h4>
+</div>
+<div class="modal-body">
+  <div class="row" style="margin-top:30px">
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="param.label" placeholder="Label" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="param.from" placeholder="De (Campo)" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="param.to" placeholder="Para (API)" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <select class="form-control" ng-model="param.type">
+          <option value="">Selecione o tipo do parâmetro</option>
+          <option value="URL">URL</option>
+          <option value="Body">Body</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <select class="form-control" ng-model="param.required">
+          <option value="">Obrigatório?</option>
+          <option value="1">Sim</option>
+          <option value="0">Não</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2 pull-right" >
+      <button ng-if="!edita" class="btn btn-default" ng-disabled="!param.from || !param.to || !param.type" ng-click="addParameter(param, fonte)">
+        Adicionar <i class="fa fa-plus"></i>
+      </button>
+      <button ng-if="edita" class="btn btn-default" ng-disabled="!param.from || !param.to || !param.type"  ng-click="updateParameter(param, fonte);">
+          Atualizar <i class="fa fa-edit"></i>
+      </button>
+    </div>
+  </div>
+  <div ng-if="!edita">
+    <hr />
+    <h4>Filtros para adicionar:</h4>
+    <span class="label label-sm label-success" style="margin: 5px; display: inline-block !important; padding:10px; font-weight:300"
+      ng-repeat="param in fonte.parameter track by $index">{{param.label}} <i class="fa fa-remove" ng-click="removeParameter(param, fonte)"></i></span>
+  </div>
+  <div ng-if="edita">
+      <h4>Filtro após alterações:</h4>
+      <div>
+  			<table
+  				class="table table-striped table-hover table-condensed ">
+  				<tbody>
+  					<tr>
+  						<td>Label</td>
+  						<td>{{param.label}}</td>
+  					</tr>
+  					<tr>
+  						<td>Tipo</td>
+  						<td>{{param.type}}</td>
+  					</tr>
+            <tr>
+  						<td>Obrigatório?</td>
+  						<td>{{param.required}}</td>
+  					</tr>
+  					<tr>
+  						<td>De (API)</td>
+  						<td>{{param.from}}</td>
+  					</tr>
+  					<tr>
+  						<td>Para (Relatório)</td>
+  						<td>{{param.to}}</td>
+  					</tr>
+  				</tbody>
+  			</table>
+		</div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-disabled="!fonte.parameter" ng-click="confirmar(fonte)">
+    <span class="fa fa-check"></span>
+    Confirmar
+  </button>
+</div>

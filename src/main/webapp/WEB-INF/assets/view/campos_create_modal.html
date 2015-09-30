@@ -1,0 +1,102 @@
+<div class="modal-header">
+  <h4 class="modal-title">Adicionar/Editar Campo</h4>
+</div>
+<div class="modal-body">
+
+  <div class="row" ng-hide="converter.map" style="margin-top:30px">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="converter.label" placeholder="Label" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <select name="type" ng-model="converter.type" class="form-control">
+          <option value="" selected="true">Selecione o tipo de campo</option>
+          <option value="currency">Valor(R$)</option>
+          <option value="date">Data</option>
+          <option value="number">Número</option>
+          <option value="text">Texto</option>
+          <option value="code">Código</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="converter.from" placeholder="De (API)" />
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="converter.to" placeholder="Para (Relatório)"  ng-change="converter.expression=converter.to"/>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="converter.expression" placeholder="Expressão" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <!-- <div class="col-md-10">
+    <div class="form-group">
+    <span>
+    <input type="checkbox" style="margin-right: 10px;" ng-model="converter.map" />
+    É um mapa?
+    </span>
+    </div>
+    </div> -->
+    <div class="col-md-12" style="text-align: right;">
+      <button ng-if="!edita" class="btn btn-default" ng-disabled="(!converter.to || !converter.from) && (!converter.to || !converter.key || !converter.value)" ng-click="addConverter(converter, fonte);">
+          Adicionar <i class="fa fa-plus"></i>
+      </button>
+      <button ng-if="edita" class="btn btn-default" ng-disabled="(!converter.to || !converter.from) && (!converter.to || !converter.key || !converter.value)" ng-click="updateConverter(converter, fonte);">
+          Atualizar <i class="fa fa-edit"></i>
+      </button>
+    </div>
+  </div>
+  <hr />
+  <div ng-if="!edita">
+      <h4>Campos para adicionar:</h4>
+      <div>
+        <span class="label label-sm label-success" style="margin: 5px; display: inline-block !important; padding:10px; font-weight:300"
+          ng-repeat="converter in fonte.converter track by $index">{{converter.label}} <i class="fa fa-remove" ng-click="removeConverter(converter, fonte)"></i></span>
+      </div>
+  </div>
+  <div ng-if="edita">
+      <h4>Campo após alterações:</h4>
+      <div>
+  			<table
+  				class="table table-striped table-hover table-condensed ">
+  				<tbody>
+  					<tr>
+  						<td>Label</td>
+  						<td>{{converter.label}}</td>
+  					</tr>
+  					<tr>
+  						<td>Expressão</td>
+  						<td>{{converter.expression}}</td>
+  					</tr>
+  					<tr>
+  						<td>Tipo</td>
+  						<td>{{converter.type}}</td>
+  					</tr>
+  					<tr>
+  						<td>De (API)</td>
+  						<td>{{converter.from}}</td>
+  					</tr>
+  					<tr>
+  						<td>Para (Relatório)</td>
+  						<td>{{converter.to}}</td>
+  					</tr>
+  				</tbody>
+  			</table>
+		</div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary" ng-disabled="!fonte.converter" ng-click="confirmar(fonte)">
+    <span class="fa fa-check"></span>
+    Confirmar
+  </button>
+</div>

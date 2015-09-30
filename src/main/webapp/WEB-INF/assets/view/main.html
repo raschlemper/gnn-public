@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="fixed-margin">
+        <div class="container">
+            <div class="panel panel-default user-panel">
+                <div class="panel-heading">
+                    <h3><i class="fa fa-binoculars"></i> Minhas visões <small> {{modulo.nome}}</small></h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Descrição</th>
+                                <th>Código</th>
+                                <th>Data de criação</th>
+                                <th>Módulo</th>
+                                <th>Ações</th>
+                                <th>Visualizar relatório</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="visio in filtered">
+                                <td>{{visio.name}}</td>
+                                <td>{{visio.description}}</td>
+                                <td>{{visio.hash}}</td>
+                                <td>{{visio.createDate | date:'dd/MM/yyyy'}}</td>
+                                <td>{{visio.modulo.nome}}</td>
+                                <td>
+                                    <button class="btn btn-primary" ng-click="updateVisio(visio)"><i class="fa fa-edit"></i></button>
+                                    <button class="btn btn-danger" ng-click="setVisio(visio)" data-toggle="modal" data-target="#modalVisio"><i class="fa fa-trash-o"></i></button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-flat" ng-click="viewReport(visio)"><i class="fa fa-eye"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                      <pagination ng-if="visios.length" total-items="totalItens" ng-model="paginaAtual" items-per-page="totalPorPagina" ng-change="mudaPagina(paginaAtual)" class="pagination-sm" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                    </div>
+                    <div ng-if="!visios.length" class="pontilhado">Para criar uma nova visão, clique no botão "Nova visão".</div>
+
+                </div>
+                <div class="panel-footer" style="padding:30px;">
+                    <button class="btn btn-default pull-right" ng-click="newVisio()" style="margin-top: -15px;">Nova visão <i class="fa fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalVisio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="false">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                Você realmente deseja excluir a visão {{visio.name}}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeVisio(visio)">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>

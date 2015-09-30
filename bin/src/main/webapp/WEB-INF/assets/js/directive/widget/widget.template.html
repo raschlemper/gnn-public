@@ -1,0 +1,29 @@
+<div style="padding:5px">
+    <div class="table-responsive" ng-if="table" style="overflow-y: scroll; height:400px; width: 100%;">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr class="active">
+                    <th ng-repeat="label in data[0] track by $index">{{label.name}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in data track by $index">
+                    <td ng-repeat="column in row">{{column.value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <img ng-if="image" src="{{data[0].path}}" style="width: 100%;"/>
+    <div class="bs-callout bs-callout-default" ng-if="list">
+        <div ng-repeat="row in data track by $index">
+            <div ng-repeat="column in row track by $index" style="font-size:18px">
+                <span style="font-weight:bold">{{column.name}}</span>:<span style="margin-left:10px">{{column.value}}</span>
+            </div>
+        </div>
+    </div>
+    <div ng-if="text">
+            <hr />
+            <p style="width: 100%;">{{data[0]}}</p>
+    </div>
+    <h3 ng-if="title" style="width: 100%;">{{data}}</h3>
+</div>

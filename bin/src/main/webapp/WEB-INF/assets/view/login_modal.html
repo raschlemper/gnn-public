@@ -1,0 +1,25 @@
+<div>
+  <div class="modal-header" style="text-align: center; padding-top: 15px;">
+    <img ng-src="{{logo}}"/>
+  </div>
+  <div class="modal-body" style="text-align: center;">
+    <form>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="loginForm.instituicao" placeholder="{{'INSTITUICAO' | translate}}" focus-me="true"/>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="loginForm.usuario" placeholder="{{'USUARIO' | translate}}"/>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" ng-model="loginForm.senha" placeholder="{{'SENHA' | translate}}"/>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" ng-model="loginForm.resposta" placeholder="{{'RESPOSTA' | translate}}" on-enter="login(loginForm)"/>
+      </div>
+      <div style="margin-top: 10px; margin-bottom: 10px; margin-left: auto; margin-right: auto;" ng-show="errorMessage" class="alert alert-danger">{{'MENSAGEM_DE_FALHA_NA_AUTENTICACAO' | translate}}</div>
+    </form>
+  </div>
+  <div class="modal-footer" style="text-align: center;">
+    <a href="" style="width: 100%;" class="btn btn-primary" ng-click="login(loginForm)">{{'ENTRAR' | translate}}</a>
+  </div>
+</div>

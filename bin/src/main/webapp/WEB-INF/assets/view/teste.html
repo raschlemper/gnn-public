@@ -1,0 +1,56 @@
+<div class="fixed-margin">
+    <layout preview="true" min-height="600" blocks="blocks" preview="true" ng-if="blocks.length">
+        <div ng-repeat="block in blocks">
+            <div block="block.name" columns="block.columns" lines="block.lines" group="false" offset-line="block.offsetLine" offset-row="block.offsetRow" line-height="block.lineHeight" preview-block="true">
+                <div ng-repeat="child in block.childs" ng-if="block.childs">
+                    <div block="child.name" columns="child.columns" lines="child.lines" group="false" offset-line="child.offsetLine" offset-row="child.offsetRow" preview-block="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </layout>
+    <button data-toggle="modal" data-target="#myModal">Adicionar bloco</button>
+    {{blocks}}
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Novo componente</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome:</label>
+                    <input type="text" ng-model="block.name" placeholder="Digite o nome do componente">
+                </div>
+                <div class="form-group">
+                    <label>Colunas:</label>
+                    <select ng-options="column for column in columns" ng-model="block.columns">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Linhas:</label>
+                    <input type="number" ng-model="block.lines" placeholder="Digite o número de linhas">
+                </div>
+                <div class="form-group">
+                    <label>Tamanho da linha:</label>
+                    <input type="number" ng-model="block.lineHeight" placeholder="Digite o número em pixels do tamanho da linha">
+                </div>
+                <div class="form-group">
+                    <label>Espaçamento superior:</label>
+                    <input type="number" ng-model="block.offsetLine" placeholder="Digite o tamanho do espaçamento de superior em linhas">
+                </div>
+                <div class="form-group">
+                    <label>Espaçamento lateral:</label>
+                    <input type="number" ng-model="block.offsetRow" placeholder="Digite o tamanho do espaçamento lateral em pixels">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addBlock(block)">Salvar alterações</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{getBlocks()}}

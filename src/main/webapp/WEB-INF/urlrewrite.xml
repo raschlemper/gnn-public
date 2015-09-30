@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlrewrite>
+	 <rule>
+        <from>^/(.*)$</from>
+        <to>/app/$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/app/(.*)$</from>
+        <to>/$1</to>
+    </outbound-rule>
+</urlrewrite>

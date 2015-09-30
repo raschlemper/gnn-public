@@ -1,0 +1,9 @@
+.classpath
+.project
+.settings
+target
+node_modules
+src/main/webapp/assets/index.html
+src/main/webapp/assets/public.html
+src/main/webapp/assets/node_modules
+src/main/webapp/assets/bower_components

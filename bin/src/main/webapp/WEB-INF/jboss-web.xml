@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	<context-root>vision</context-root>
+	<security-domain>java:/jaas/gennera</security-domain>
+</jboss-web>

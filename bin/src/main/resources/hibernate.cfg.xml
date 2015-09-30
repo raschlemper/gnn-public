@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+	
+		<property name="hibernate.connection.driver_class">com.sybase.jdbc3.jdbc.SybDriver</property>
+		<property name="hibernate.connection.password">sql</property>
+		<property name="hibernate.connection.url">jdbc:sybase:Tds:10.0.1.72:2369?ServiceName=BD02001</property>
+		<property name="hibernate.connection.username">dba</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLAnywhere11Dialect</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hbm2ddl.auto">update</property>
+		
+		<mapping class="vision.domain.Campo" />
+		<mapping class="vision.domain.Modelo" />
+		<mapping class="vision.domain.Vision" />
+		<mapping class="vision.domain.Layout" />
+		<mapping class="vision.domain.LayoutComponente" />
+		<mapping class="vision.domain.LayoutContainer" />
+		<mapping class="vision.domain.Template" />
+		<mapping class="vision.domain.TemplateComponente" />
+		<mapping class="vision.domain.TemplateContainer" />
+		<mapping class="vision.domain.DefaultEntity" />
+		
+	</session-factory>
+	
+</hibernate-configuration>
+

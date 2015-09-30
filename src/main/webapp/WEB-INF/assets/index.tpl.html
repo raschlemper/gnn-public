@@ -1,0 +1,85 @@
+<!doctype html>
+<html ng-app="vision">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title ng-bind="configs.title"></title>
+    <link rel="icon" type="image/png" href="{{configs.favicon}}">
+    <!-- Declaração das folhas de estilo -->
+    <!-- include: "type": "css", "files": ["css/jquery-ui.min.css","bower_components/font-awesome/css/font-awesome.min.css","bower_components/bootstrap/dist/css/bootstrap.min.css","bower_components/angular-veasy-table/dist/css/veasy-table.min.css","bower_components/ng-sortable/dist/ng-sortable.css","bower_components/textAngular/dist/textAngular.css", "bower_components/fuelux/dist/css/fuelux.min.css", "bower_components/hover/css/hover-min.css","bower_components/simple-line-icons/css/simple-line-icons.css","bower_components/animate-css/animate.css","bower_components/angular-block-ui/dist/angular-block-ui.min.css","bower_components/ngtoast/dist/ngToast.css","css/main.css","css/report.css","css/docs.min.css","css/bs-docs-sidebar.css"] -->
+    <!-- Bower -->
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/jquery/jquery.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular/angular.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-animate/angular-animate.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-translate/angular-translate.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-touch/angular-touch.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/underscore/underscore.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/ngtoast/dist/ngToast.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-i18n/angular-locale_pt-br.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/fuelux/dist/js/fuelux.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/highcharts/highcharts.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/highmaps/modules/data.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/highmaps/modules/map.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/ng-sortable/dist/ng-sortable.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-veasy-table/src/veasy-table.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/angular-veasy-table/dist/js/veasy-table-tpls.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/textAngular/dist/textAngular-rangy.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/textAngular/dist/textAngular-sanitize.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/bower_components/textAngular/dist/textAngular.min.js"></script>
+
+    <!-- Declaração das bibliotecas Javascript -->
+    <script type="text/javascript" charset="UTF-8" src="static/lib/browservalidator/bowser.min.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/browservalidator/browservalidator.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/highcharts-mapdata/br-all.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/date/date.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/signature/signature.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/angular-mask/angular-mask.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/angular-date-mask/angular-date-mask.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/angular-money-mask/angular-money-mask.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/angular-text-limit/angular-text-limit.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/angular-case-sensitivity/angular-case-sensitivity.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/api/api.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/lib/api/ngApi.js"></script>
+    <script type="text/javascript" charset="UTF-8" src="static/dist/js/templates.js"></script>
+    <!-- Declaração do Javascript da aplicação - Application -->
+    <!-- include: "type": "js", "files": ["js/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Run -->
+    <!-- include: "type": "js", "files": ["js/run/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Config -->
+    <!-- include: "type": "js", "files": ["js/config/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Constant -->
+    <!-- include: "type": "js", "files": ["js/constant/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Interceptor -->
+    <!-- include: "type": "js", "files": ["js/interceptor/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Service -->
+    <!-- include: "type": "js", "files": ["js/service/**/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Directive -->
+    <!-- include: "type": "js", "files": ["js/directive/**/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Controller -->
+    <!-- include: "type": "js", "files": ["js/controller/modals/*.js"] -->
+    <!-- include: "type": "js", "files": ["js/controller/**/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Filter -->
+    <!-- include: "type": "js", "files": ["js/filter/*.js"] -->
+    <!-- Declaração do Javascript da aplicação - Util -->
+    <!-- include: "type": "js", "files": ["js/util/*.js"] -->
+  </head>
+  <body>
+    <notification-box></notification-box>
+    <div ng-show="loading" ng-include="'view/loading'"></div>
+    <div ng-hide="loading">
+      <div ng-include="'view/menu'"></div>
+      <div class="container">
+        <div ng-view></div>
+      </div>
+      <div ng-include="'view/credits'"></div>
+    </div>
+  </body>
+</html>

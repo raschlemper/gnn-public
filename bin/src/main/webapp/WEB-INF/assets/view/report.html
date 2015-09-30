@@ -1,0 +1,55 @@
+<div id="sidebar">
+    <div class="sidebar-inner" role="navigation">
+        <div style="margin-top: 40px;">
+            <input type="text" class="form-control" placeholder="Buscar por nome..." ng-model="search" style="width:60%; margin:15px" />
+            <i class="icon-search"></i>
+        </div>
+        <div class="si-inner" style="margin-top:30px;">
+            <ul class="nav nav-sidebar" style="max-height:700px; overflow-y:auto">
+                <li ng-repeat="page in pages | filter:search" ng-click="getPage(page)">
+                    <a ng-click="select($index, page)" style="color:#2C3E50  !important; font-size:13px" ng-class="{'activeList': $index===selectedIndex}"></i>{{$index + 1}} - {{page.link.name}} - {{page.link.value}} <span class="selected-flat" ng-if="$index===selectedIndex"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section id="content">
+    <div class="col-lg-10 fixed-margin pull-right">
+        <div class="row visible-lg-block main-report" style="min-height:100%;">  
+
+            <div class="col-lg-11">  
+
+                <div class="btn-group btn-breadcrumb">
+                    <div class="btn-group" ng-repeat="link in links">
+                      <a type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        {{link.item}} <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                      </ul>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="col-lg-11 pontilhado">
+                <layout configuracao="visio.layout.configuration" preview="false">
+                    <div id="header-title" class="col-lg-12" ng-show="report.title">
+                        <div class="page-header">
+                            <h3>{{ report.title }}</h3>
+                        </div>
+                    </div>
+                    <div block="container.type" columns="container.column" lines="0" group="false" line-height="visio.layout.configuration.full.lineHeight" preview-block="true" ng-repeat="container in visio.layout.containers">
+                        <div block="component.name" columns="component.column" lines="0" line-height="visio.layout.configuration.full.lineHeight" preview-block="true" ng-repeat="component in container.components">
+                            <widget data="component.data" type="component.type"></widget>
+                        </div>
+                    </div>
+                </layout>
+            </div>
+        </div>
+    </div>
+</section>

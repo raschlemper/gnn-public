@@ -1,0 +1,11 @@
+<div class="fixed-margin">
+    <button class="btn btn-default" ng-click="backConfiguration()">Voltar</button>
+    <layout configuracao="visio.layout.configuration" preview="false">
+        <div block="container.type" columns="container.column" lines="container.line" group="false" line-height="visio.layout.configuration.full.lineHeight" preview-block="false" ng-repeat="container in visio.layout.containers">
+            <div block="component.name" columns="component.column" lines="component.line" line-height="visio.layout.configuration.full.lineHeight" preview-block="false" ng-repeat="component in container.components">
+                <h3>{{component.label}}</h3>
+                <widget data="component.data" type="component.type" class="pontilhado"></widget>
+            </div>
+        </div>
+    </layout>
+</div>

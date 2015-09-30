@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/spring/app-config.xml,
+			/WEB-INF/spring/security-config.xml,
+			/WEB-INF/spring/mvc-config.xml
+		</param-value>
+	</context-param>	
+	<listener>		
+		<!-- 
+		Listener para setar o http request na thread local.
+		O DispatcherServlet já faz isso automaticamente, mas o código que está em com.gennera.form.security.CustomUserDetailsService não passa pelo DispatcherServlet, e necessita do http request para recuperar o principal. 
+		-->
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>			
+	<listener>		
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!-- Configurações para o filtro de segurança --> 
+	<filter>
+	    <filter-name>filterChainProxy</filter-name>
+	    <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>	
+	<filter-mapping>
+	    <filter-name>filterChainProxy</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>httpMethodFilter</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+   		<filter-name>httpMethodFilter</filter-name>
+   		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>Gennera Security Authentication</servlet-name>
+		<servlet-class>com.gennera.security.servlet.ServletSimpleAuth</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Gennera Security Authentication</servlet-name>
+		<url-pattern>/doAuth</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				/WEB-INF/spring/*.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
+		<url-pattern>/app/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>

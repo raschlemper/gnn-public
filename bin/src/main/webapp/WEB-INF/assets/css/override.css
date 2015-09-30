@@ -1,0 +1,49 @@
+*:focus {
+  outline: none;
+}
+
+.btn, .btn-group>.btn:hover, .btn-group>.btn:focus, .btn-group>.btn:active, .btn-group>.btn.active {
+	outline: none;
+}
+
+a, button {
+	outline: none;
+}
+
+.pagination ul>.active>a, .pagination ul>.active>span {
+  background-color: #08c !important;
+  color: white !important;
+}
+
+.pagination ul>li>a:hover, .pagination ul>li>span:hover {
+  background-color: #F0F0F0 !important;
+  color: #08c !important;
+}
+
+.text-center {
+	text-align: center !important;
+}
+
+.tab-item-list {
+  margin-bottom: 5px;
+  padding: 15px 15px 0px 15px;
+  border: 1px dotted #E0E0E0;
+  border-radius: 5px;
+  background-color: rgb(249, 249, 249);
+}
+
+.input-list-item {
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px dotted #E0E0E0;
+  border-radius: 5px;
+  background-color: rgb(249, 249, 249);
+}
+
+.kstore-list-item {
+  margin: 0 0px 15px 0px;
+  padding: 20px 0px 20px 0px;
+  border: 1px solid rgb(229, 229, 229);
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px rgb(190, 190, 190);
+}

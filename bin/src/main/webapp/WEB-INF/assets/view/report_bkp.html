@@ -1,0 +1,106 @@
+<div class="container fixed-margin">
+	<div class="row visible-lg-block main-report">
+		<div class="col-lg-2">
+			<div class="row">
+				<div class="col-md-12 text-center" ng-repeat="page in report.pages">
+					<i class="fa fa-file-text-o fa-lg img-file-page" ng-click="getPage($index)">
+						<p class="img-file-font"><strong>Página {{ $index + 1 }}</strong></p>
+					</i>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-10 report">
+
+			<div class="page-portrait container-fluid shadow">					
+				
+				<div id="header" class="col-lg-12">
+				
+					<div id="header-title" class="col-lg-12">
+						<div class="page-header">
+							<h3>{{ report.title }}</h3>
+						</div>
+					</div>
+						
+					<div id="header-imagem" class="col-lg-3">
+						<img src="images/yeoman.png" class="col-lg-12"/>
+					</div>
+					
+					<div id="header-data" class="col-lg-9">
+						<div class="row" ng-repeat="header in headers">
+							<div class="col-lg-4">{{ header.name }}:</div>
+							<div class="col-lg-8">{{ header.value }}</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div id="details" class="col-lg-12" style="font-size: 80%">
+					<div id="details-data" class="col-lg-10">
+						<table class="table">
+							<tr>
+								<th ng-repeat="header in details.header">{{ header.name }}</th>
+							</tr>
+							<tr ng-repeat="detail in details"> 
+								<td ng-repeat="field in detail">{{ field.value }}</td>
+							</tr>
+						</table>
+					</div>
+					<div id="details-saldo" class="col-lg-2">
+						<table class="table">
+							<tr>
+								<th ng-repeat="header in rests.header">{{ header.name }}</th>
+							</tr>
+							<tr ng-repeat="rest in rests"> 
+								<td ng-repeat="field in rest">{{ field.value }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+				<div id="footer" class="col-lg-12">
+					<div id="footer-total" class="col-lg-12">
+						<table class="table">
+							<tr>
+								<th ng-repeat="header in footers.header">{{ header.name }}</th>
+							</tr>
+							<tr ng-repeat="footer in footers"> 
+								<td ng-repeat="field in footer">{{ field.value }}</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			
+			   <!-- <layout configuracao="configuracao.layout" preview="false">
+	                     <header title="teste">
+	                         <div class="layout layout-container container-column"></div>
+	                     </header>
+	                     <details></details>
+	                     <footer></footer>
+	                </layout>
+	
+				 <div class="row">
+					<div class="col-lg-12">
+						<layout id="cabecalho" column="report.cabecalho.column" show-number="false" content="cabecalhoHtml"/>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-12">
+						<table class="table table-striped">
+							<tr>
+					          	<th ng-repeat="item in report.detalhe.fields.header">{{ item }}</th>
+					        </tr>
+							<tr>
+		  						<td ng-repeat="item in report.detalhe.fields.values">{{ item }}</td>
+		  					</tr>
+						</table>
+					</div>
+				</div> -->
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+    

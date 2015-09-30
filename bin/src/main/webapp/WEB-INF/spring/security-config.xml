@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+ 	<sec:global-method-security secured-annotations="enabled" />
+
+	<!-- Primeiro é necessário alterar o ciclo de vida comum do Spring Security -->	
+    <bean id="filterChainProxy" class="org.springframework.security.web.FilterChainProxy">
+        <sec:filter-chain-map path-type="ant">
+	    	<!-- Recursos dinâmicos como serviços e páginas -->
+	    	<sec:filter-chain pattern="/view/**" filters="none" />
+	    	<!-- Recursos dinâmicos como serviços e páginas -->
+	    	<sec:filter-chain pattern="/public/**" filters="none" />
+	    	<!-- Recursos como imagens, CSS e Javascript -->
+	    	<sec:filter-chain pattern="/static/**" filters="none" />
+	    	<!-- E para todo o resto se aplica os filtros -->
+            <sec:filter-chain pattern="/**" filters="
+            	securityContextFilter,
+            	j2eePreAuthFilter,
+            	logoutFilter,
+            	exceptionTranslationFilter,
+            	filterSecurityInterceptor"/>
+        </sec:filter-chain-map>
+    </bean>
+	
+	<!-- Filtro padrão pada guardar o contexto da segurança -->
+    <bean id="securityContextFilter" class="org.springframework.security.web.context.SecurityContextPersistenceFilter"/>
+
+	<!-- Configura-se os dois authentication providers para anonimos e pré-autenticados (gennera security) -->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref='preAuthenticatedAuthenticationProvider'/>
+        <sec:authentication-provider ref='anonymousAuthenticationProvider'/>
+    </sec:authentication-manager>
+        
+    <bean id="anonymousAuthenticationProvider" class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+    	<property name="key" value="anonymous"/>
+    </bean>
+    
+    <bean id="preAuthenticatedAuthenticationProvider" class="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider">
+        <property name="preAuthenticatedUserDetailsService" ref="preAuthenticatedUserDetailsService"/>
+    </bean>
+    <bean id="preAuthenticatedUserDetailsService" class="vision.infra.CustomUserDetailsService" />
+
+    <bean id="j2eePreAuthFilter" class="org.springframework.security.web.authentication.preauth.j2ee.J2eePreAuthenticatedProcessingFilter">
+    	<property name="checkForPrincipalChanges" value="true" />
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="authenticationDetailsSource">
+            <bean class="org.springframework.security.web.authentication.preauth.j2ee.J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource">
+                <property name="mappableRolesRetriever">
+                    <bean class="org.springframework.security.web.authentication.preauth.j2ee.WebXmlMappableAttributesRetriever" />
+                </property>
+                <property name="userRoles2GrantedAuthoritiesMapper">
+                    <bean class="org.springframework.security.core.authority.mapping.SimpleAttributes2GrantedAuthoritiesMapper">
+                        <property name="convertAttributeToUpperCase" value="true"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+	<!-- Entry point define qual o comportamento para um usuário que precisa se autenticar --> 
+    <bean id="preAuthenticatedProcessingFilterEntryPoint" class="vision.infra.Http401UnauthorizedEntryPoint" />
+	
+    <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg value="/"/>
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="exceptionTranslationFilter" class="org.springframework.security.web.access.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint" ref="preAuthenticatedProcessingFilterEntryPoint"/>
+    </bean>
+
+    <bean id="httpRequestAccessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <property name="decisionVoters">
+            <list>
+				<bean id="authenticadedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+            	<bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="filterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager"/>
+        <property name="accessDecisionManager" ref="httpRequestAccessDecisionManager"/>
+        <property name="securityMetadataSource">
+            <sec:filter-invocation-definition-source>
+                <sec:intercept-url pattern="/**" access="IS_AUTHENTICATED_FULLY"/>
+            </sec:filter-invocation-definition-source>
+        </property>
+    </bean>
+
+    <bean id="securityContextHolderAwareRequestFilter" class="org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter"/>
+</beans>

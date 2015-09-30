@@ -1,0 +1,22 @@
+var app = angular.module('vision', [
+  'ui.bootstrap',
+  'ui.sortable',
+  'pascalprecht.translate',
+  'money-mask',
+  'date-mask',
+  'mask',
+  'text-limit',
+  'case-sensitivity',
+  'ngSanitize',
+  'ngAnimate',
+  'ngCookies',
+  'ngRoute',
+  'ngApi',
+  'ngTouch',
+  'ngLocale',
+  'ngResource',
+  'veasyTable',
+  'visionView',
+  'ngToast',
+  'textAngular'
+]);
