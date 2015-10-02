@@ -145,6 +145,7 @@
                             <th>Label</th>
                             <th>Tipo</th>
                             <th>Obrigatório?</th>
+                            <th>Formato</th>
                             <th>De (API)</th>
                             <th>Para (Relatório)</th>
                             <th>Ações</th>
@@ -155,6 +156,7 @@
                             <td>{{param.label}}</td>
                             <td>{{param.type}}</td>
                             <td>{{param.required === '1' ? 'Sim' : 'Não'}}</td>
+                            <td>{{param.format}}</td>
                             <td>{{param.from}}</td>
                             <td>{{param.to}}</td>
                             <td><button class="btn btn-sm btn-danger" ng-click="removeParameter(param, fonte)">
