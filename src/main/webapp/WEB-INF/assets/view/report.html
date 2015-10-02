@@ -1,14 +1,14 @@
 <div class="navbar navbar-default navbar-sub" role="navigation">
     <div class="navbar-sub-filter">
-        <div class="btn-toolbar"> 
+        <div class="btn-toolbar btn-toolbar-filter"> 
         
         	<form class="form-inline">
           
 	            <div class="btn-group">
-	                <button type="button" class="btn btn-info dropdown-toggle btn-filter" data-toggle="dropdown">
+	                <button type="button" class="btn btn-info" ng-click="openPageFilterModal()">
 	                    <span class="glyphicon glyphicon-filter"></span>
 	                </button>
-	                <ul class="dropdown-menu" role="menu">
+	                <!-- <ul class="dropdown-menu" role="menu">
 	                    <li class="remove-filters">
 	                        <a href="javascript:void(0)">
 	                            <span class="glyphicon glyphicon-remove"></span> Remove all filters
@@ -20,10 +20,10 @@
 	                            <input type="checkbox" ng-model="filter.checked" ng-checked="filter.checked"> {{filter.label}}
 	                        </a>
 	                    </li>
-	                </ul>
+	                </ul> -->
 	            </div>
 	            
-				<div class="form-group-filters">
+				<!-- <div class="form-group-filters">
 				
 					<div class="btn-group" ng-repeat="filter in filters track by $index" ng-show="filter.checked">
 					  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -56,8 +56,14 @@
 						</button>
 					</div>
 					
-				</div>
+				</div> -->
 				
+				<div class="btn-group btn-group-right">
+	                <button type="button" class="btn btn-default" ng-click="openPageConfigurationModal()">
+	                    <span class="glyphicon glyphicon-menu-hamburger"></span>
+	                </button>
+	            </div>
+        
 			</form>
 			
         </div>
@@ -66,9 +72,9 @@
 
 <div class="main-report">
 
-    <div class="col-lg-12 without-padding">
+    <!-- <div class="col-lg-12 without-padding">
 
-        <!-- <ul class="breadcrumb breadcrumb-border without-margin">
+        <ul class="breadcrumb breadcrumb-border without-margin">
             <li class="dropdown" ng-repeat="list in link.lists">
                 <a class="dropdown-toggle" id="{{list.selected.name}}" data-toggle="dropdown" aria-expanded="true">
                     {{list.selected.value}}
@@ -80,9 +86,9 @@
                     </li>
                 </ul>
             </li>
-        </ul> -->
+        </ul>
 
-    </div>
+    </div> -->
             
     <!-- <div class="col-md-2 bs-docs-sidebar-report without-padding bs-docs-sidebar-border">
 
@@ -98,8 +104,25 @@
     </div> -->
 
     <div class="col-md-12 report"> 
+    
+    	<nav class="text-center">
+    
+	    	<pagination ng-if="pagination.groups.length" 
+	    		total-items="pagination.totalItens" 
+	    		ng-model="pagination.currentPage" 
+	    		items-per-page="pagination.totalByPage" 
+	    		ng-change="getPage(pagination.currentPage)" 
+	    		class="pagination-sm" 
+	    		boundary-links="true" 
+	    		previous-text="&lsaquo;" 
+	    		next-text="&rsaquo;" 
+	    		first-text="&laquo;" 
+	    		last-text="&raquo;"></pagination>
+	    </nav>		
 
-        <div class="page-portrait container-fluid">
+        <div class="container-fluid page" ng-class="{ portrait_a4: configuration.page.layout === 'portrait' && configuration.page.size === 'a4',
+        											  landscape_a4: configuration.page.layout === 'landscape' && configuration.page.size === 'a4' }">
+        
             <layout configuracao="visio.layout.configuration" preview="false">
                 <div id="header-title" class="col-lg-12" ng-show="report.title">
                     <div class="page-header">

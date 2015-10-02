@@ -1,21 +1,17 @@
 'use strict';
 
-app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'FilterService', 'DataGrouperService', 'api', 'MessageService', 'ConvertUtil', 
-                              function($scope, $routeParams, ComponentService, FilterService, DataGrouperService, api, MessageService, ConvertUtil) {
+app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'FilterService', 'DataGrouperService', 'modalService', 'api', 'MessageService', 'ConvertUtil', 
+                              function($scope, $routeParams, ComponentService, FilterService, DataGrouperService, ModalService, api, MessageService, ConvertUtil) {
 
 	var visio = {};
 	var registers = [];
-    $scope.filters = [];
-    $scope.pages = [];
-
-//	var index = 0;
-//    $scope.link = [];
-//    $scope.page = [];
-//    $scope.visio = {};
-    
-//    var params = {instituicao: "246", inicio: "2015-08-01", fim: "2015-08-30"};
-
-    var createReport = function() {
+	var filters = [];
+	
+    var init = function() {
+        $scope.pages = [];
+        $scope.visio = [];
+        $scope.pagination = {};
+        $scope.configuration = { page: { layout: "portrait", size: "a4" } };
     	getVisio();
     }
 
@@ -23,23 +19,19 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
         if(!$routeParams.hashid) return;
         api.visions.get($routeParams.hashid)
             .success(function(data) {
-            	visio = ConvertUtil.convert.visionFromEntity(angular.copy(data));	     
-//                getFilters();   	
-            	getFilterUrl(visio.datasource.parameter, 'input');
+            	visio = ConvertUtil.convert.visionFromEntity(angular.copy(data));	
+            	$scope.openPageFilterModal();
             })
             .error(function(err) {
                 MessageService.danger('Erro ao criar relatório: ' + err);
             });          
     }
     
-    $scope.filter = function() { 
-    	console.log($scope.filters);
+    var filter = function() { 
     	var params = getParams();
     	api.datasources.getOperations(visio.datasource.hash).prod(JSON.stringify(params))
 	    	.success(function (data) {
-	    		if(_.isEmpty(registers)) { getFilterUrl(xt.getReportFilter(visio.layout), 'dropdown'); }
 	            registers = data;	
-	            setFilterValue();
 	            getPages();
 	    	})
 	    	.error(function (err) {
@@ -47,53 +39,65 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
 	            registers = [];
 		    });
     }
-
-    var getFilters = function() {
-    	getFilterUrl(visio.datasource.parameter, 'input');
-    	getFilterUrl(xt.getReportFilter(visio.layout), 'dropdown');
-    }
-    
-    var getFilterUrl = function(filters, type) {
-    	 _.map(filters, function(filter) {
-    		$scope.filters.push(getItem(filter, type));
-    	});
-    }
-    
-    var getItem = function(filter, type) {
-    	return { 'key': filter.to, 'value': null, 'label': filter.label, 'checked': true, 'type': type }
-    }
-
+	
+    //TODO: colocar uma verificação pelo camplos e valores selecionados
     var getParams = function() {
     	var params = {};
-    	_.map($scope.filters, function(filter) {
-    		params[filter.key] = filter.value;
+    	_.map(filters, function(filter) {
+    		if(verifyParamFromUrl(filter)) {
+    			params[filter.key] = filter.values;
+    		}
     	});
     	return params;
     }
     
-    var setFilterValue = function() {
-    	_.map($scope.filters, function(filter) {
-    		if(filter.type === 'dropdown') {
-    			if(filter.value) { return; }
-    			filter.value = [];
-    			var values = DataGrouperService.keys(registers, filter.key);
-    	    	_.map(values, function(value) {
-    	    		filter.value.push({ 'key': value[filter.key], 'label': value[filter.key], 'checked': true });
-    	    	})
-    		}
-    	})
+    var verifyParamFromUrl = function(filter) {
+    	var paramUrl = _.pluck(visio.datasource.parameter, 'to');
+    	return (_.contains(paramUrl, filter.key));
     }
-
+    
     var getPages = function(selected) {
     	var selected = getFilterSelected();
     	var registersSelected = FilterService.filter(selected, registers);
     	var groups = createGroups(registersSelected, xt.getReportFilter(visio.layout)); 
-        $scope.getPage(groups[0]);
+    	createPages(groups);
+        $scope.getPage(1);
+    }
+    
+    var getFilterSelected = function() {
+    	var selecteds = {};
+    	_.map(filters, function(filter) {
+    		if(verifyParamFromUrl(filter)) return;
+    		var values = [];
+    		_.map(filter.values, function(value) {
+    			if(value.checked) { values.push(value.value); }
+    		});
+    		var obj = {};
+    		obj[filter.key] = values;
+    		_.extend(selecteds, obj);
+    	});
+    	return selecteds;
+    }
+
+    var createGroups = function(registers, filters) {
+        if(!filters) return registers;
+        var keys = _.pluck(filters, 'to');
+        return DataGrouperService.pages(registers, keys);
+    }
+    
+    var createPages = function(groups) {
+    	$scope.pagination = {
+    		"groups": groups,
+    		"totalItens": groups.length,
+    		"currentPage": 1,
+    		"totalByPage": 1
+    	}
     }
 
     $scope.getPage = function(page) {
+    	$scope.pagination.currentPage = page;
     	$scope.visio = angular.copy(visio);
-    	$scope.visio.layout.containers = formatComponents(angular.copy(visio.layout.containers), page);
+    	$scope.visio.layout.containers = formatComponents(angular.copy(visio.layout.containers), $scope.pagination.groups[page - 1]);
     }
 
     var formatComponents = function(containers, page) {
@@ -105,66 +109,55 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
         return containers;
     }
     
-    var getFilterSelected = function() {
-    	var filters = {};
-    	_.map($scope.filters, function(filter) {
-    		if(filter.type !== 'dropdown') return;
-    		var values = [];
-    		_.map(filter.value, function(item) {
-    			if(item.checked) { values.push(item.key); }
-    		});
-    		var obj = {};
-    		obj[filter.key] = values;
-    		_.extend(filters, obj);
-    	});
+    var getFieldsFilters = function() {
+    	var filters = [];
+    	filters = _.union(filters, visio.datasource.parameter);
+    	if(!_.isEmpty(registers)) { 
+    		filters = _.union(filters, xt.getReportFilter(visio.layout)); 
+    	}
     	return filters;
     }
 
-    var createGroups = function(registers, filters) {
-        if(!filters) return registers;
-        var keys = _.pluck(filters, 'to');
-        return DataGrouperService.pages(registers, keys);
-    }
-    
-    
-    
-    
-    
-
-//    $scope.getLinks = function() {
-//        $scope.link = ReportService.links(registers, visio);
-//        $scope.getLink($scope.link.selected[0], index);
-//    }
-//
-//    $scope.getLink = function(key, index) {
-//        $scope.link = ReportService.link(key, index);
-//        var selected = angular.copy($scope.link.selected);
-//        $scope.getPages(selected, $scope.link.links[0]);
-//    }
-//
-//    $scope.getPages = function(selected, link) {
-//        var selected = angular.copy(selected);
-//        var filters = link.key;
-//        _.map(selected, function(item, index) {
-//            if(index + 1 < selected.length){
-//            _.extend(filters, item);
-//            }
-//        });
-//        $scope.page = ReportService.pages(registers, visio, filters);
-//        $scope.getPage($scope.page.pages);
-//    }
-//
-//    $scope.getPage = function(page) {
-//        $scope.visio = ReportService.page(angular.copy(visio), page);
-//        console.log($scope.link);
-//    }
-//  
+    $scope.openPageConfigurationModal = function () {
+    	var resolve = {
+    		configuration: function () {
+	          return $scope.configuration;
+	        }
+	    };
+    	ModalService.custom('view/pageConfigurationModal', 'pageConfigurationModalController', 'lg', resolve, false)
+    		.then(function (data) {
+    			$scope.configuration = data;
+    		}, function (message) {
+    			console.log(message);
+    		});
+    };
   
-
+    $scope.openPageFilterModal = function () {
+    	var resolve = {
+    		fieldsFilters: function() {
+	          return getFieldsFilters();
+	        },
+	        registers: function() {
+	        	return registers;
+	        },
+	        filters: function() {
+	        	return filters;
+	        }
+	    };
+    	ModalService.custom('view/pageFilterModal', 'pageFilterModalController', 'lg', resolve, false)
+    		.then(function (data) {
+    			filters = data;
+    			filter();
+    		}, function (message) {
+    			console.log(message);
+    		});
+    };
+    
+    
 
 	  /* **************************************************************************** */
 	
-	  /* TODO: Colocar esta mÃ©todo no momento em que o layout esta sendo criado. */
+	  /* TODO: Colocar esta mÃ©todo no momento em que o layout esta sendo criado. para identificar a quebra de página */
 	
 	  var xt = {};
 	
@@ -214,6 +207,6 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
 	
 	  /* **************************************************************************** */
 
-    createReport();
+    init();
 
 }]);

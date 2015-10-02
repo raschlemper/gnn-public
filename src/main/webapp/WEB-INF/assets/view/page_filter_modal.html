@@ -1,0 +1,42 @@
+<div class="modal-header">
+	<h4 class="modal-title">Filtros Página</h4>
+</div>
+<div class="modal-body">
+
+	<form class="form-horizontal">
+	
+  		<div class="form-group" ng-repeat="filter in filters track by $index">
+    		<label class="col-md-3 control-label">{{filter.label}}</label>
+					
+			<div class="btn-group col-md-6">
+			
+				<div ng-show="filter.type == 'input'">
+					<input type="text" class="form-control" ng-model="filter.values" placeholder="{{filter.label}}" ng-value="filter.values" >
+				</div>
+				
+				<div ng-show="filter.type == 'dropdown'">
+				  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				  		{{filter.label}} <span class="caret"></span>
+				  	</button>				  				  	
+				  	<ul class="dropdown-menu" role="menu">
+	                    <li ng-repeat="value in filter.values track by $index">
+	                        <a href="javascript:void(0)" block-click>
+	                            <input type="checkbox" ng-model="filter.values[$index].checked" ng-checked="value.checked"> {{value.label}}
+	                        </a>
+	                    </li>
+				  	</ul>
+				</div>
+			  	
+			</div>
+			
+		</div>
+  		
+	</form>
+				
+</div>
+
+<div class="modal-footer">
+	<button class="btn btn-primary" ng-click="filter(filters)">
+	  	<span class="fa fa-check"></span> Pesquisar
+	</button>
+</div>

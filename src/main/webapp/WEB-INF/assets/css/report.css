@@ -29,8 +29,7 @@
     padding: 40px;
 }
 
-.report .page-portrait,
-.report .page-landscape {
+.page {
     background-color: #fff;
     border: 1px solid #CCC;
     padding: 10px;
@@ -40,13 +39,13 @@
 	.main-report {
 	  	height: calc((842px * 0.5) + 80px);
 	}
-	.report .page-portrait {
+	.portrait_a4 {
 	  	width: calc(595px * 0.5);
 	  	height: calc(842px * 0.5);
 	    min-height: 100px;
 	    font-size: calc(8pt * 0.5);
 	}
-	.report .page-landscape {
+	.landscape_a4 {
 	  	height: calc(595px * 0.5);
 	  	width: calc(842px * 0.5);
 	    min-height: 100px;
@@ -58,13 +57,13 @@
 	.main-report {
 	  	height: calc((842px * 1.0) + 80px);
 	}
-	.report .page-portrait {
+	.portrait_a4 {
 	  	width: calc(595px * 1.0);
 	  	height: calc(842px * 1.0);
 	    min-height: 100px;
 	    font-size: calc(8pt * 1.0);
 	}
-	.report .page-landscape {
+	.landscape_a4 {
 	  	height: calc(595px * 1.0);
 	  	width: calc(842px * 1.0);
 	    min-height: 100px;
@@ -76,13 +75,13 @@
 	.main-report {
 	  	height: calc((842px * 1.5) + 80px);
 	}
-	.report .page-portrait {
+	.portrait_a4 {
 	  	width: calc(595px * 1.5);
 	  	height: calc(842px * 1.5);
 	    min-height: 100px;
 	    font-size: calc(8pt * 1.5);
 	}
-	.report .page-landscape {
+	.landscape_a4 {
 	  	height: calc(595px * 1.5);
 	  	width: calc(842px * 1.5);
 	    min-height: 100px;
@@ -91,6 +90,10 @@
 }
 
 /* Filter */
+
+.btn-toolbar-filter {
+	margin: 0 15px 0 0;
+}
 
 .form-group-filters div {
 	margin-left: 5px;
@@ -103,3 +106,15 @@
 .btn .caret {
     margin-left: 5px;
 }
+
+.btn-group-right {
+    float: right!important;
+    margin-right: 5px;
+}
+
+/* Congiguration */
+
+.radio-inline {
+    padding-top: 7px;
+}
+
