@@ -1,0 +1,179 @@
+<div>
+    <div class="modal-header">
+        <h4 class="modal-title">Criar/Editar componente</h4>
+    </div>
+    <div class="modal-body">
+        <div class="btn-toolbar" style="margin-left:100px; text-align:left">
+            <div class="btn-group">
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('text');"><i class="fa fa-font"></i> Texto</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('image');"><i class="fa fa-picture-o"></i> Imagem</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('table');"><i class="fa fa-table"></i> Tabela</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('list');"><i class="fa fa-list"></i> Lista</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('title');"><i class="fa fa-header"></i> Título</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('filter');"><i class="fa fa-filter"></i> Filtro</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('formula');"><i class="fa fa-calculator"></i> Fórmula</button>
+                <button class="btn btn-sm btn-default" type="button" ng-click="select('subtable');"><i class="fa fa-list-alt "></i> Subtabela</button>
+            </div>
+        </div>
+        <div class="container-fluid tab-margin-content">
+            <div ng-if="type === 'text'">
+                <div class="form-group">
+                    <label for="text">Digite o texto desejado:</label>
+                    <textarea cols="3" rows="5" id="text" type="text" class="form-control" name="text" ng-model="component.data"></textarea>
+                </div>
+            </div>
+            <div ng-if="type === 'image'">
+                <div class="form-group">
+                    <label for="caminho">Link da foto:</label>
+                    <input id="caminho" class="form-control" type="text" ng-model="component.data" placeholder="Digite o link da foto" />
+                </div>
+            </div>
+            <div ng-if="type === 'list'">
+                <div class="col-md-12 form-group" style="margin-left: 13px;">
+                    <label>Pesquisar campos</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome do campo desejado" ng-model="busca.label" />
+                </div>
+                <div class="col-md-2" style="margin-top: 15px;">
+                    <label style="margin-left: 13px; margin-bottom: 15px">Selecionar campos</label>
+                    <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" style="margin-top: 0px; max-height: 355px; overflow-y: scroll;">
+                        <ul class="nav bs-docs-sidenav">
+                            <li class="" ng-repeat="label in campos | filter:busca | orderBy:label.order"><a ng-click="addCampo(label)" ng-class="{'docs-active': label.selected}">{{label.label}}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-8" style="padding: 10px; margin-left: 121px; margin-top: 41px; font-size:small">
+                    <div class="table-responsive" id="fields">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="active">
+                                    <th>Nome</th>
+                                    <th>Campo</th>
+                                    <th>Expressão</th>
+                                    <th class="col-md-2">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="selecionado in selectedsFiltered | orderBy:selecionado.order | limitTo:totalPorPagina">
+                                    <td>{{selecionado.label}}</td>
+                                    <td>{{selecionado.to}}</td>
+                                    <td>{{selecionado.expression}}</td>
+                                    <td class="col-md-2">
+                                        <button class="btn btn-danger" ng-click="removeCampo(selecionado)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <pagination style="margin:0px;" ng-if="component.data.fields.length" total-items="totalItens" ng-model="paginaAtual" style="margin-left:51px" items-per-page="totalPorPagina" ng-change="mudaPagina(paginaAtual)" class="pagination-sm" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                        </div>
+                    </div>
+                    <div ng-if="!component.data.fields.length" class="pontilhado">Nenhum campo selecionado.</div>
+                </div>
+            </div>
+            <div ng-if="type === 'table'">
+                <div class="col-md-12 form-group" style="margin-left: 13px;">
+                    <label>Pesquisar campos</label>
+                    <input type="text" class="form-control" placeholder="Digite o nome do campo desejado" ng-model="busca.label" />
+                </div>
+                <div class="col-md-2" style="margin-top: 15px;">
+                    <label style="margin-left: 13px; margin-bottom: 15px">Selecionar campos</label>
+                    <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" style="margin-top: 0px; max-height: 355px; overflow-y: scroll;">
+                        <ul class="nav bs-docs-sidenav">
+                            <li class="" ng-repeat="label in campos | filter:busca | orderBy:label.order"><a ng-click="addCampo(label)" ng-class="{'docs-active': label.selected}">{{label.label}}</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-8" style="padding: 10px; margin-left: 121px; margin-top: 41px; font-size:small">
+                    <div class="table-responsive" id="fields">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="active">
+                                    <th>Nome</th>
+                                    <th>Campo</th>
+                                    <th>Expressão</th>
+                                    <th class="col-md-2">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="selecionado in selectedsFiltered | orderBy:selecionado.order | limitTo:totalPorPagina">
+                                    <td>{{selecionado.label}}</td>
+                                    <td>{{selecionado.to}}</td>
+                                    <td>{{selecionado.expression}}</td>
+                                    <td class="col-md-2">
+                                        <button class="btn btn-danger" ng-click="removeCampo(selecionado)">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <pagination style="margin:0px;" ng-if="component.data.fields.length" total-items="totalItens" ng-model="paginaAtual" style="margin-left:51px" items-per-page="totalPorPagina" ng-change="mudaPagina(paginaAtual)" class="pagination-sm" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+                        </div>
+                    </div>
+                    <div ng-if="!component.data.fields.length" class="pontilhado">Nenhum campo selecionado.</div>
+                </div>
+            </div>
+            <div ng-if="type === 'subtable'">
+                Subtabela
+            </div>
+            <div ng-if="type === 'filter'">
+                <div class="input-group">
+                    <select ng-options="param.label for param in fonte.parameter | filter:param.required='0'" ng-model="filterSelected" class="form-control">
+                        <option value="">Selecione um filtro para adicionar no relatório...</option>
+                    </select>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" ng-click="addFilterVision(filterSelected)"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div>
+                <div ng-hide="!fonte.parameter || fonte.parameter.length < 1">
+                    <table class="table table-hover" style="width: 92%; margin: 25px;">
+                        <thead>
+                            <tr>
+                                <th>Label</th>
+                                <th>Tipo</th>
+                                <th>Obrigatório?</th>
+                                <th>De (API)</th>
+                                <th>Para (Relatório)</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="param in filtros track by $index">
+                                <td>{{param.label}}</td>
+                                <td>{{param.type}}</td>
+                                <td>{{param.required === '1' ? 'Sim' : 'Não'}}</td>
+                                <td>{{param.from}}</td>
+                                <td>{{param.to}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger" ng-click="removeParameter(param, fonte)" ng-hide="param.required === '1'">
+                                        <i class="fa fa-trash-o"></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div ng-if="type === 'formula'">
+                Fórmula
+            </div>
+            <div ng-if="type === 'title'">
+                <div class="form-group">
+                    <label for="text">Digite o título desejado:</label>
+                    <input id="text" type="text" class="form-control" name="text" ng-model="component.data" />
+                </div>
+            </div>
+            <div class="pontilhado" ng-if="type === ''">
+                Escolhe um componente acima para adicionar ao relatório...
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-danger" ng-click="close()">Cancelar</button>
+        <button class="btn btn-primary" ng-click="confirmar()">Criar</button>
+    </div>
+</div>

@@ -940,13 +940,13 @@ h2 code,h3 code,h4 code{
 
 }
 
-@media (min-width:1200px){
+/*@media (min-width:1200px){
 	.bs-docs-sidebar.affix,.bs-docs-sidebar.affix-bottom{
 		width:263px
 	}
 
 }
-
+*/
 .bs-docs-section{
 	margin-bottom:60px
 }

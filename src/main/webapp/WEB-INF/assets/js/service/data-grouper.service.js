@@ -34,16 +34,6 @@ app.factory("DataGrouperService", function() {
         });
     };
 
-    var pages = function(data, names) {
-        var stems = keys(data, names);
-        return _.map(stems, function(stem) {
-            var val = vals(data, stem, names);
-            return _.map(val, function(vals) {
-            	return _.extend(stem, vals);
-            })
-        });
-    };
-
     return {
 
         group: function(data, names) {
@@ -67,9 +57,11 @@ app.factory("DataGrouperService", function() {
         pages: function(data, names) {
             var groups = group(data, names);
             return _.map(groups, function(item) {
-            	return _.map(item.vals, function(val) {
-            		return _.extend(item.key, val);
+            	var values = [];
+            	_.map(item.vals, function(val) {
+            		values.push(_.extend(val, item.key));
 	            });
+            	return values;
             });
         }
 

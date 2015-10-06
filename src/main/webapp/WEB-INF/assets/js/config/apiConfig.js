@@ -32,6 +32,9 @@ app.config(['apiProvider', function (apiProvider) {
 					}
 				},
 				visions:{
+				},
+				templates:{
+					
 				}
 			}
 	};

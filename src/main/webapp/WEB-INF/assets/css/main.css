@@ -13,6 +13,10 @@
 	box-shadow: 0px 0px 4px #3C3C3C;
 }
 
+.tab-margin-content{
+    margin-top:30px;
+}
+
 .centered-on-screen {
     position: fixed;
     top: 50%;

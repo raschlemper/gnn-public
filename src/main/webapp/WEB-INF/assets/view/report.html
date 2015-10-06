@@ -66,9 +66,9 @@
 
 <div class="main-report">
 
-    <div class="col-lg-12 without-padding">
+    <!-- <div class="col-lg-12 without-padding">
 
-        <!-- <ul class="breadcrumb breadcrumb-border without-margin">
+        <ul class="breadcrumb breadcrumb-border without-margin">
             <li class="dropdown" ng-repeat="list in link.lists">
                 <a class="dropdown-toggle" id="{{list.selected.name}}" data-toggle="dropdown" aria-expanded="true">
                     {{list.selected.value}}
@@ -80,9 +80,9 @@
                     </li>
                 </ul>
             </li>
-        </ul> -->
+        </ul>
 
-    </div>
+    </div> -->
             
     <!-- <div class="col-md-2 bs-docs-sidebar-report without-padding bs-docs-sidebar-border">
 
@@ -98,6 +98,21 @@
     </div> -->
 
     <div class="col-md-12 report"> 
+    
+    	<nav class="text-center">
+    
+	    	<pagination ng-if="pagination.groups.length" 
+	    		total-items="pagination.totalItens" 
+	    		ng-model="pagination.currentPage" 
+	    		items-per-page="pagination.totalByPage" 
+	    		ng-change="getPage(pagination.currentPage)" 
+	    		class="pagination-sm" 
+	    		boundary-links="true" 
+	    		previous-text="&lsaquo;" 
+	    		next-text="&rsaquo;" 
+	    		first-text="&laquo;" 
+	    		last-text="&raquo;"></pagination>
+	    </nav>		
 
         <div class="page-portrait container-fluid">
             <layout configuracao="visio.layout.configuration" preview="false">

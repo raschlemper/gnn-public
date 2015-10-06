@@ -7,6 +7,7 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
 	var registers = [];
     $scope.filters = [];
     $scope.pages = [];
+    $scope.pagination = {};
 
 //	var index = 0;
 //    $scope.link = [];
@@ -88,12 +89,23 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
     	var selected = getFilterSelected();
     	var registersSelected = FilterService.filter(selected, registers);
     	var groups = createGroups(registersSelected, xt.getReportFilter(visio.layout)); 
-        $scope.getPage(groups[0]);
+    	createPages(groups);
+        $scope.getPage(1);
+    }
+    
+    var createPages = function(groups) {
+    	$scope.pagination = {
+    		"groups": groups,
+    		"totalItens": groups.length,
+    		"currentPage": 1,
+    		"totalByPage": 1
+    	}
     }
 
     $scope.getPage = function(page) {
+    	$scope.pagination.currentPage = page;
     	$scope.visio = angular.copy(visio);
-    	$scope.visio.layout.containers = formatComponents(angular.copy(visio.layout.containers), page);
+    	$scope.visio.layout.containers = formatComponents(angular.copy(visio.layout.containers), $scope.pagination.groups[page - 1]);
     }
 
     var formatComponents = function(containers, page) {

@@ -16,7 +16,6 @@ import vision.domain.Template;
 import vision.service.TemplateService;
 
 @Controller
-@RequestMapping("/public/api")
 public class TemplateController {
 	
 	private final Logger log = LoggerFactory.getLogger(VisionController.class);

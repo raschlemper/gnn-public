@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <div class="container fixed-margin">
+        <div class="panel panel-default user-panel">
+            <div class="panel-heading">
+                <h3>Configuração da visão</h3>
+            </div>
+            <div class="panel-body">
+                <form name="fonteDadoForm" novalidate>
+                    <tabset>
+                        <tab>
+                            <tab-heading>Geral</tab-heading>
+                            <div class="col-md-6 tab-margin-content">
+                                <div class="form-group" ng-if="vision.hashid">
+                                    <label for="codigo">Código:</label>
+                                    <input id="codigo" type="text" class="form-control" name="codigo" ng-model="vision.hashid" readonly />
+                                </div>
+                                <div class="form-group" ng-class="{'has-error': cadastroForm.nome.$invalid && !cadastroForm.nome.$pristine }">
+                                    <label for="nome">Visão:</label>
+                                    <input id="nome" type="text" class="form-control" name="nome" ng-model="vision.name" placeholder="Digite o nome da visão" required />
+                                    <p ng-show="cadastroForm.nome.$invalid && !cadastroForm.nome.$pristine" class="help-block">O nome é obrigatório.</p>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descricao">Descrição:</label>
+                                    <textarea id="descricao" name="descricao" class="form-control" rows="3" cols="5" ng-model="vision.description" placeholder="Digite a descrição da visão "></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fonte">Fonte de dados:</label>
+                                    <select ng-class="{'has-error': cadastroForm.nome.$invalid && !cadastroForm.nome.$pristine }" class="form-control" ng-model="vision.datasource" ng-options="datasource.name for datasource in datasources track by datasource.id" required>
+                                        <option value="">Selecione a fonte de dados</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading>Templates</tab-heading>
+                            <div class="row tab-margin-content">
+                                <div class="col-md-9 text-center">
+                                    <div class="panel panel-default" style="min-height: 500px;">
+                                        <div class="panel-heading">Templates</div>
+                                        <div class="panel-body">
+                                            <div class="row layout-line">
+                                                <div class="col-md-4 layout-box" ng-repeat="item in templates">
+                                                    <div class="row text-left">
+                                                        <div class="radio">
+                                                            <label>
+                                                                <input type="radio" class="clip-unset" name="layout" ng-value="item" ng-model="selection.template" ng-click="selectTemplate()">{{item.name}}
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <layout configuracao="item.configuration" preview="true">
+                                                        <div block="container.type" columns="container.column" lines="container.line" group="false" line-height="item.configuration.preview.lineHeight" preview-block="true" ng-repeat="container in item.containers">
+                                                            <div class="layout layout-container layout-border">
+                                                                <div class="layout layout-container container-column">
+                                                                    {{container.name}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </layout>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 text-center" id="layout">
+                                    <div class="panel panel-default" style="height: 250px;">
+                                        <div class="panel-heading">Selecionado</div>
+                                        <div class="panel-body layout-box">
+                                            <div class="row">
+                                                <layout configuracao="selection.template.configuration" preview="true">
+                                                    <div block="container.type" columns="container.column" lines="container.line" group="false" line-height="selection.template.configuration.preview.lineHeight" preview-block="true" ng-repeat="container in selection.template.containers">
+                                                        <div class="layout layout-container layout-border">
+                                                            <div class="layout layout-container container-column">
+                                                                {{container.name}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </layout>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab>
+                            <tab-heading>Componentes</tab-heading>
+                            <div class="col-md-6" style=" margin: 50px 50px 50px 300px;">
+                                <div style="min-height:450px !important">
+                                    <div ng-repeat="container in vision.layout.containers | orderBy:'order'">
+                                        <div gridster class="pontilhado">
+                                            <span ng-if="!container.components.length">Nenhum componente adicionado</span>
+                                            <div gridster-item size-x="2" size-y="1" ng-repeat="component in container.components" ng-if="container.components.length">
+                                                <div class="layout layout-container layout-border">
+                                                    <div class="layout layout-container container-column">
+                                                        <div ng-if="component.type === 'table'" class="layout-number fa fa-table" title="Tipo tabela"></div>
+                                                        <div ng-if="component.type === 'image'" class="layout-number   fa fa-picture-o" title="Tipo imagem"></div>
+                                                        <div ng-if="component.type === 'list'" class="layout-number   fa fa-list" title="Tipo lista"></div>
+                                                        <div ng-if="component.type === 'text'" class="layout-number   fa fa-file-text-o" title="Tipo texto"></div>
+                                                        <div ng-if="component.type === 'title'" class="layout-number   fa fa-file-text-o" title="Tipo'título"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="fa fa-plus" ng-click="newComponente(container)"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                    </tabset>
+                </form>
+            </div>
+            <div class="panel-footer" style="padding:30px;">
+                <div class="pull-left">
+                    <button class="btn btn-default" style="margin-top: -25px;">
+                        <span class="fa fa-arrow-left"></span> Voltar
+                    </button>
+                </div>
+                <div class="pull-right">
+                    <button ng-show="vision.id" class="btn btn-primary">
+                        <span class="fa fa-check"></span> Salvar Alterações na Visão
+                    </button>
+                    <button ng-hide="vision.id" class="btn btn-primary">
+                        <span class="fa fa-check"></span> Salvar Visão
+                    </button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
