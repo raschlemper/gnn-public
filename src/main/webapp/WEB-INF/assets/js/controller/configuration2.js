@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the exemplosApp
  */
-app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertUtil', 'modalService', function($scope, $routeParams, api, ConvertUtil, modalService) {
+app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertUtil', 'modalService', '$location', function($scope, $routeParams, api, ConvertUtil, modalService, $location) {
 
     var init = function() {
         $scope.vision = {};
@@ -55,8 +55,8 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
             if (!$routeParams.hashid) {
                 var selected = $scope.templates[0];
                 $scope.selection.template = selected;
-                $scope.visio.layout = selected;
-                $scope.visio.layout.templateId = selected._id;
+                $scope.vision.layout = selected;
+                $scope.vision.layout.templateId = selected._id;
             } else {
                 var selecionado = $scope.templates.filter(function(value) {
                     return value._id == $scope.vision.layout.templateId;
@@ -103,6 +103,21 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
         $scope.vision.layout.containers = _.without($scope.vision.layout.containers, container);
         $scope.vision.layout.containers.push(container);
     }
+
+    $scope.saveVision = function(vision) {
+        var entity = ConvertUtil.convert.stringfyToEntity(vision);
+        entity.hash = entity.hashid;
+        delete entity.hashid;
+        entity.modulo = angular.copy($scope.modulo);
+        if (!$routeParams.hashid) {
+            api.visions.save(entity);
+        } else {
+            api.visions.update(entity.hash, entity);
+        }
+        setTimeout(function() {
+            $location.url('/vision').search('modulo', $routeParams.modulo);
+        }, 200);
+    };
 
     $scope.selectTemplate = function() {
         $scope.vision.layout = $scope.selection.template;
