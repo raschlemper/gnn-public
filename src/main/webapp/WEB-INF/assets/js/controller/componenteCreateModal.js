@@ -45,6 +45,10 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         $scope.type = type || '';
         $scope.component = {};
         $scope.component.type = type;
+        $scope.component.sizeX = 1;
+        $scope.component.sizeY = 1;
+        $scope.component.row = 0;
+        $scope.component.col = container.components.length;
         $scope.selectedsFiltered = [];
         if (type === 'list' || 'table') {
             getCamposMovimento();
@@ -104,9 +108,9 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         var container = angular.copy($scope.container);
         container.components = [];
         var component = angular.copy($scope.component);
-        component.hash = Math.random().toString(36).substr(2, 9) + 
-        Math.random().toString(36).substr(2, 12) + 
-        Math.random().toString(36).substr(2, 15);
+        component.hash = Math.random().toString(36).substr(2, 9) +
+            Math.random().toString(36).substr(2, 12) +
+            Math.random().toString(36).substr(2, 15);
         container.components.push(component);
         $modalInstance.close(container);
     };

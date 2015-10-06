@@ -88,7 +88,7 @@
                                     <div ng-repeat="container in vision.layout.containers | orderBy:'order'">
                                         <div gridster class="pontilhado">
                                             <span ng-if="!container.components.length">Nenhum componente adicionado</span>
-                                            <div gridster-item size-x="2" size-y="1" ng-repeat="component in container.components" ng-if="container.components.length">
+                                            <div gridster-item size-x="component.sizeX" row="component.row" col="component.col" size-y="component.sizeY" ng-repeat="component in container.components" ng-if="container.components.length">
                                                 <div class="layout layout-container layout-border">
                                                     <div class="layout layout-container container-column">
                                                         <div ng-if="component.type === 'table'" class="layout-number fa fa-table" title="Tipo tabela"></div>
@@ -98,7 +98,9 @@
                                                         <div ng-if="component.type === 'title'" class="layout-number   fa fa-file-text-o" title="Tipo'título"></div>
                                                     </div>
                                                 </div>
+                                                  
                                             </div>
+
                                         </div>
                                         <button class="fa fa-plus" ng-click="newComponente(container)"></button>
                                     </div>

@@ -105,12 +105,6 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
         clear();
     };
 
-    var createGridItem = function(data) {
-        $('.grid-stack').gridstack();
-        var grid = $('.grid-stack').data('gridstack');
-        var el = $('.grid-stack-element').html();
-        grid.add_widget(el, 0, 0, 3, 2, true);
-    }
 
     var clear = function() {
         $scope.component = {};
