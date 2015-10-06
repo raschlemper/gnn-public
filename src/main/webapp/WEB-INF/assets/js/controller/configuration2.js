@@ -44,6 +44,11 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
         }
     };
 
+    $scope.removeWidget = function(component, container) {
+        container.components.splice(container.components.indexOf(component), 1);
+    }
+
+
     var getTemplates = function() {
         api.templates.list().success(function(data) {
             $scope.templates = ConvertUtil.convert.jsonToObject(angular.copy(data));
