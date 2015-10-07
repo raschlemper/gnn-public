@@ -1,9 +1,10 @@
 <div>
     <div class="modal-header">
-        <h4 class="modal-title">Criar componente</h4>
+        <h4 class="modal-title" ng-if="!edita">Criar componente</h4>
+        <h4 class="modal-title" ng-if="edita">Editar componente - {{type}}</h4>
     </div>
     <div class="modal-body">
-        <div class="btn-toolbar" style="margin-left:100px; text-align:left">
+        <div class="btn-toolbar" style="margin-left:100px; text-align:left" ng-if="!edita">
             <div class="btn-group">
                 <button class="btn btn-sm btn-default" type="button" ng-click="select('text');"><i class="fa fa-font"></i> Texto</button>
                 <button class="btn btn-sm btn-default" type="button" ng-click="select('image');"><i class="fa fa-picture-o"></i> Imagem</button>
@@ -174,6 +175,7 @@
     </div>
     <div class="modal-footer">
         <button class="btn btn-danger" ng-click="close()">Cancelar</button>
-        <button class="btn btn-primary" ng-click="confirmar()">Criar</button>
+        <button class="btn btn-primary" ng-click="confirmar()" ng-if="!edita">Criar</button>
+        <button class="btn btn-primary" ng-click="confirmar()" ng-if="edita">Atualizar</button>
     </div>
 </div>

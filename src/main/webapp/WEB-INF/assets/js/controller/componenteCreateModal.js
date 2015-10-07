@@ -1,18 +1,22 @@
-app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter', '$modalInstance', function($scope, fonte, container, $filter, $modalInstance) {
+app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter', '$modalInstance', 'component', 'edita', function($scope, fonte, container, $filter, $modalInstance, component, edita) {
 
     var init = function() {
-        $scope.type = '';
+        $scope.edita = false || edita;
         $scope.container = container || {};
-        $scope.component = {
-            data: {
-
-            }
-        } || component;
+        $scope.component = component || {};
+        if (component && component.type) {
+            $scope.type = $scope.component.type;
+        } else {
+            $scope.type = '';
+        };
         $scope.fonte = fonte || {};
         if (fonte) {
+            if($scope.edita && !($scope.type === 'list' || $scope.type === 'table')){
+                return ;
+            }
             getCamposMovimento();
             selecionaListaFiltros(fonte.parameter);
-        }
+        };
     }
 
     $scope.totalPorPagina = 6;
@@ -25,35 +29,51 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
 
     var getCamposMovimento = function() {
         var campos = angular.copy($scope.fonte.converter);
-        // if ($scope.component.data) {
-        //     campos.filter(function(campo) {
-        //         if ($scope.component.data.fields.length) {
-        //             for (var i = 0; i < $scope.component.data.fields.length; i++) {
-        //                 if (campo._id === $scope.component.data.fields[i]._id) {
-        //                     $scope.component.data.fields[i].selected = true;
-        //                     campo.selected = true;
-        //                 }
-        //             };
-        //             $scope.selectedsFiltered = $scope.component.data.fields;
-        //         }
-        //     });
-        // };
+        if ($scope.edita && $scope.component.data) {
+            campos.filter(function(campo) {
+                if ($scope.component.data.fields.length) {
+                    for (var i = 0; i < $scope.component.data.fields.length; i++) {
+                        if (campo._id === $scope.component.data.fields[i]._id) {
+                            $scope.component.data.fields[i].selected = true;
+                            campo.selected = true;
+                        }
+                    };
+                    $scope.selectedsFiltered = $scope.component.data.fields;
+                }
+            });
+        };
         $scope.campos = campos;
+    };
+
+    $scope.removeCampo = function(selected) {
+        selected.selected = false;
+        $scope.component.data.fields = _.without($scope.component.data.fields, _.findWhere($scope.component.data.fields, {
+            expression: selected.expression
+        }));
+        $scope.selectedsFiltered = $scope.component.data.fields;
+        totalItens();
+        filtraSelecionados();
     };
 
     $scope.select = function(type) {
         $scope.type = type || '';
         $scope.component = {};
         $scope.component.type = type;
+        if($scope.edita){
+            $scope.component.data = {};
+        };
         $scope.component.sizeX = 1;
         $scope.component.sizeY = 3;
-        $scope.component.data = {};
         $scope.component.row = 0;
         $scope.component.col = container.components.length;
         $scope.selectedsFiltered = [];
         if (type === 'list' || 'table') {
-            if(type === 'list') {$scope.component.data.format = 'list'};
-            if(type === 'table') {$scope.component.data.format = 'grid'};
+            if (type === 'list') {
+                $scope.component.data.format = 'list'
+            };
+            if (type === 'table') {
+                $scope.component.data.format = 'grid'
+            };
             getCamposMovimento();
         }
     }
@@ -111,9 +131,11 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         var container = angular.copy($scope.container);
         container.components = [];
         var component = angular.copy($scope.component);
-        component.hash = Math.random().toString(36).substr(2, 9) +
-            Math.random().toString(36).substr(2, 12) +
-            Math.random().toString(36).substr(2, 15);
+        if (!$scope.edita) {
+            component.hash = Math.random().toString(36).substr(2, 9) +
+                Math.random().toString(36).substr(2, 12) +
+                Math.random().toString(36).substr(2, 15);
+        };
         container.components.push(component);
         $modalInstance.close(container);
     };

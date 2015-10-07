@@ -61,7 +61,25 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
     }
 
     $scope.editWidget = function(component, container) {
-        console.log(component, container);
+        var resolve = {
+            fonte: function() {
+                return angular.copy($scope.vision.datasource) || {};
+            },
+            container: function() {
+                return angular.copy(container);
+            },
+            component: function() {
+                return angular.copy(component);
+            },
+            edita: function() {
+                return true;
+            }
+        };
+        modalService.custom('view/componenteCreateModal', 'componenteCreateCtrl', 'lg', resolve, false).then(function(data) {
+            updateContainer(data);
+        }, function(message) {
+
+        });
     }
 
 
@@ -89,6 +107,12 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
             },
             container: function() {
                 return angular.copy(container);
+            },
+            edita: function() {
+                return false;
+            },
+            component: function() {
+                return ;
             }
         };
         modalService.custom('view/componenteCreateModal', 'componenteCreateCtrl', 'lg', resolve, false).then(function(data) {
@@ -108,7 +132,8 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
                 hash: componentUpdate.hash
             });
             if (existComponent) {
-                container = _.without(container.components, existComponent);
+                container.components = _.without(container.components, existComponent);
+                container.components.push(componentUpdate);
             } else {
                 container.components.push(componentUpdate);
             }
