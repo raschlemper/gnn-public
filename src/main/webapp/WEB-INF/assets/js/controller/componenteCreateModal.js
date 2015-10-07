@@ -70,9 +70,11 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         $scope.selectedsFiltered = [];
         if (type === 'list' || 'table') {
             if (type === 'list') {
+                if(!$scope.component.data){$scope.component.data = {}};
                 $scope.component.data.format = 'list'
             };
             if (type === 'table') {
+                if(!$scope.component.data){$scope.component.data = {}};
                 $scope.component.data.format = 'grid'
             };
             getCamposMovimento();
