@@ -28,7 +28,7 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
     };
 
     $scope.gridsterOpts = {
-        columns: 3,
+        columns: 8,
         rowHeight: (40 + margin).toString(),
         margins: [margin, margin]
     };

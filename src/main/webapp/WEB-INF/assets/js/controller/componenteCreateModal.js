@@ -55,14 +55,15 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         filtraSelecionados();
     };
 
-    $scope.select = function(type) {
+    $scope.select = function(type, typename) {
         $scope.type = type || '';
         $scope.component = {};
+        $scope.component.typename = typename || '';
         $scope.component.type = type;
         if($scope.edita){
             $scope.component.data = {};
         };
-        $scope.component.sizeX = 1;
+        $scope.component.sizeX = 2;
         $scope.component.sizeY = 3;
         $scope.component.row = 0;
         $scope.component.col = container.components.length;

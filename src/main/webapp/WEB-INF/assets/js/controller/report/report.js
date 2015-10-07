@@ -19,7 +19,7 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
             draggable: {
                 enabled: false
             },
-            columns: 3,
+            columns: 8,
             rowHeight: (35 + margin).toString(),
             margins: [margin, margin]
         };

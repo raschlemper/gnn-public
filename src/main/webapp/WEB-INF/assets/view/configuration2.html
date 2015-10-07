@@ -86,11 +86,12 @@
                             <div class="col-md-6" style=" margin: 50px 50px 50px 300px;">
                                 <div style="min-height:450px !important">
                                     <div ng-repeat="container in vision.layout.containers | orderBy:'order'">
+                                        <h4 style="text-align:center">{{container.name}}</h4>
                                         <div gridster="gridsterOpts" class="pontilhado">
                                             <span ng-if="!container.components.length">Nenhum componente adicionado</span>
                                             <div gridster-item size-x="component.sizeX" row="component.row" col="component.col" size-y="component.sizeY" ng-repeat="component in container.components" ng-if="container.components.length">
                                                 <div class="box">
-                                                    <div class="box-header">{{component.type}}
+                                                    <div class="box-header">{{component.typename}}
                                                         <div class="box-header-btns pull-right">
                                                             <a title="settings" ng-click="editWidget(component, container)"><i class="glyphicon glyphicon-cog"></i></a>
                                                             <a title="Remove widget" ng-click="removeWidget(component, container)"><i class="glyphicon glyphicon-trash"></i></a>
@@ -106,7 +107,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="fa fa-plus" ng-click="newComponente(container)"></button>
+                                        <button class="btn btn-primary" ng-click="newComponente(container)" style="margin:7px 7px 7px 0px">Novo componente <i class="fa fa-plus"></i></button>
                                     </div>
                                 </div>
                             </div>
