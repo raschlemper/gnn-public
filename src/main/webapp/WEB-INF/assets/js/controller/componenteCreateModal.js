@@ -7,7 +7,7 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
             data: {
 
             }
-        };
+        } || component;
         $scope.fonte = fonte || {};
         if (fonte) {
             getCamposMovimento();
@@ -46,11 +46,14 @@ app.controller('componenteCreateCtrl', ['$scope', 'fonte', 'container', '$filter
         $scope.component = {};
         $scope.component.type = type;
         $scope.component.sizeX = 1;
-        $scope.component.sizeY = 1;
+        $scope.component.sizeY = 3;
+        $scope.component.data = {};
         $scope.component.row = 0;
         $scope.component.col = container.components.length;
         $scope.selectedsFiltered = [];
         if (type === 'list' || 'table') {
+            if(type === 'list') {$scope.component.data.format = 'list'};
+            if(type === 'table') {$scope.component.data.format = 'grid'};
             getCamposMovimento();
         }
     }

@@ -60,6 +60,10 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
         container.components.splice(container.components.indexOf(component), 1);
     }
 
+    $scope.editWidget = function(component, container) {
+        console.log(component, container);
+    }
+
 
     var getTemplates = function() {
         api.templates.list().success(function(data) {

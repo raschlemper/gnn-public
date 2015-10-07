@@ -5,7 +5,7 @@ app.controller('ReportCtrl', ['$scope', '$routeParams', 'ComponentService', 'Fil
 
         var visio = {};
         var registers = [];
-        var margin = 4;
+        var margin = 8;
         $scope.filters = [];
         $scope.pages = [];
         $scope.pagination = {};
