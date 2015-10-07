@@ -86,7 +86,7 @@
                             <div class="col-md-6" style=" margin: 50px 50px 50px 300px;">
                                 <div style="min-height:450px !important">
                                     <div ng-repeat="container in vision.layout.containers | orderBy:'order'">
-                                        <div gridster class="pontilhado">
+                                        <div gridster="gridsterOpts" class="pontilhado">
                                             <span ng-if="!container.components.length">Nenhum componente adicionado</span>
                                             <div gridster-item size-x="component.sizeX" row="component.row" col="component.col" size-y="component.sizeY" ng-repeat="component in container.components" ng-if="container.components.length">
                                                 <div class="box">
@@ -121,12 +121,14 @@
                     </button>
                 </div>
                 <div class="pull-right">
+                    <button class="btn btn-default"  ng-click="makePreview(vision)"> Preview</button>
                     <button ng-show="vision.id" class="btn btn-primary" ng-click="saveVision(vision)">
                         <span class="fa fa-check"></span> Salvar Alterações na Visão
                     </button>
                     <button ng-hide="vision.id" class="btn btn-primary" ng-click="saveVision(vision)">
                         <span class="fa fa-check" ></span> Salvar Visão
                     </button>
+
                 </div>
                 <div class="clearfix"></div>
             </div>

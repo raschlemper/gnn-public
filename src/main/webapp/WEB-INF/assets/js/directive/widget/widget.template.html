@@ -1,5 +1,5 @@
-<div style="padding:5px">
-    <div class="table-responsive" ng-if="table" style="overflow-y: auto; height:1000px; width: 100%;">
+<div>
+    <div class="table-responsive" ng-if="table" style="overflow-y: auto; height:750px; width: 100%;">
         <table class="table table-bordered table-hover">
             <thead>
                 <tr class="active">
@@ -13,7 +13,7 @@
             </tbody>
         </table>
     </div>
-    <img ng-if="image" src="{{data[0].path}}" style="width: 100%;"/>
+    <img ng-if="image" src="{{data[0]}}" style="width: 100%;"/>
     <div class="bs-callout bs-callout-default" ng-if="list">
         <div ng-repeat="row in data track by $index">
             <div ng-repeat="column in row track by $index" style="font-size:18px">
@@ -25,5 +25,5 @@
             <hr />
             <p style="width: 100%;">{{data[0]}}</p>
     </div>
-    <h3 ng-if="title" style="width: 100%;">{{data}}</h3>
+    <h3 ng-if="title" style="width: 100%;">{{data[0]}}</h3>
 </div>

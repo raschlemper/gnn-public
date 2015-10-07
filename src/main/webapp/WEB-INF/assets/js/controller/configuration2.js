@@ -7,7 +7,7 @@
  * # AboutCtrl
  * Controller of the exemplosApp
  */
-app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertUtil', 'modalService', '$location', function($scope, $routeParams, api, ConvertUtil, modalService, $location) {
+app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertUtil', 'modalService', '$location', 'TemplateService', function($scope, $routeParams, api, ConvertUtil, modalService, $location, TemplateService) {
 
     var init = function() {
         $scope.vision = {};
@@ -16,10 +16,22 @@ app.controller('ConfigurationCtrl2', ['$scope', '$routeParams', 'api', 'ConvertU
         $scope.selection = {};
         carregaVision();
     };
+    var margin = 4;
 
     $scope.setTab = function(tabId) {
         $scope.tab = tabId;
     }
+
+    $scope.makePreview = function(vision) {
+        TemplateService.service.setOptionPreview(vision);
+        $location.path("/preview");
+    };
+
+    $scope.gridsterOpts = {
+        columns: 3,
+        rowHeight: (40 + margin).toString(),
+        margins: [margin, margin]
+    };
 
 
     var carregaVision = function() {
