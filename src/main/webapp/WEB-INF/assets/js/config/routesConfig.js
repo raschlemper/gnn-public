@@ -21,8 +21,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function ($r
 		controller: 'MainCtrl'
 	})
 	.when('/vision/configuration', {
-		templateUrl: 'view/configuration',
-		controller: 'ConfigurationCtrl'
+		templateUrl: 'view/configuration2',
+		controller: 'ConfigurationCtrl2'
 	})
 	.when('/report', {
 		templateUrl: 'view/report',

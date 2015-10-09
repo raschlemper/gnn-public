@@ -36,7 +36,7 @@ app.controller('MainCtrl', ['$scope', '$location', '$filter', 'MessageService', 
     };
 
     $scope.viewReport = function(visio) {
-        $location.url('/report').search('hashid', visio.hashid).search('modulo', $routeParams.modulo);
+        $location.url('/report').search('hashid', visio.hash).search('modulo', $routeParams.modulo);
     };
 
     $scope.updateVisio = function(visio) {

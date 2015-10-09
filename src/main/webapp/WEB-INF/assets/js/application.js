@@ -18,5 +18,6 @@ var app = angular.module('vision', [
   'veasyTable',
   'visionView',
   'ngToast',
-  'textAngular'
+  'textAngular',
+  'gridster'
 ]);

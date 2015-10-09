@@ -1,3 +1,1 @@
-mvn clean package -DskipTests=true -P dev
-cd target
-cp vision.war ~/Desenvolvimento/jboss/server/default/deploy/gennera
+mvn clean package -DskipTests=true && cp target/vision.war ~/desenvolvimento/jboss/server/default/deploy/gennera
