@@ -8,55 +8,7 @@
 	                <button type="button" class="btn btn-info" ng-click="openPageFilterModal()">
 	                    <span class="glyphicon glyphicon-filter"></span>
 	                </button>
-	                <!-- <ul class="dropdown-menu" role="menu">
-	                    <li class="remove-filters">
-	                        <a href="javascript:void(0)">
-	                            <span class="glyphicon glyphicon-remove"></span> Remove all filters
-	                        </a>
-	                    </li>
-	                    <li class="divider"></li>
-	                    <li ng-repeat="filter in filters track by $index">
-	                        <a href="javascript:void(0)" block-click>
-	                            <input type="checkbox" ng-model="filter.checked" ng-checked="filter.checked"> {{filter.label}}
-	                        </a>
-	                    </li>
-	                </ul> -->
 	            </div>
-	            
-				<!-- <div class="form-group-filters">
-				
-					<div class="btn-group" ng-repeat="filter in filters track by $index" ng-show="filter.checked">
-					  	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					  		{{filter.label}} <span class="caret"></span>
-					  	</button>		
-					  				  	
-					  	<ul class="dropdown-menu" role="menu" block-click ng-show="filter.type == 'input'">
-					  		<li class="text-center">{{filter.label}}</li>
-					  		<li class="divider"></li>
-						    <li>
-						    	<a href="javascript:void(0)">
-						    		<input type="text" class="form-control" id="{{filter.key}}" name="{{filter.key}}" ng-model="filter.value" placeholder="{{filter.label}}">
-						    	</a>
-						    </li>
-					  	</ul>
-					  						  	
-					  	<ul class="dropdown-menu" role="menu" block-click ng-show="filter.type == 'dropdown'">
-		                    <li ng-repeat="item in filter.value track by $index">
-		                        <a href="javascript:void(0)" block-click>
-		                            <input type="checkbox" ng-model="filter.value[$index].checked" ng-checked="item.checked"> {{item.label}}
-		                        </a>
-		                    </li>
-					  	</ul>
-					  	
-					</div>
-				
-					<div class="btn-group">
-						<button type="button" class="btn btn-primary" ng-click="filter()">
-							<span class="glyphicon glyphicon-repeat"></span>
-						</button>
-					</div>
-					
-				</div> -->
 				
 				<div class="btn-group btn-group-right">
 	                <button type="button" class="btn btn-default" ng-click="openPageConfigurationModal()">
@@ -70,43 +22,21 @@
     </div>
 </div>    
 
-<div class="main-report">
+<div class="main-report">	
 
-    <!-- <div class="col-lg-12 without-padding">
+    <div class="col-md-12 info-report" ng-if="!existRegisters() && !searching"> 
+       	<div class="alert alert-warning text-center" role="alert">
+			<h2>Nenhum Registro encontrado!</h2>
+			<p>
+				<a ng-click="openPageFilterModal()" class="alert-link link-click">Clique aqui</a> 
+				para selecionar os filtros.
+			</p>
+		</div>
+    </div>
 
-        <ul class="breadcrumb breadcrumb-border without-margin">
-            <li class="dropdown" ng-repeat="list in link.lists">
-                <a class="dropdown-toggle" id="{{list.selected.name}}" data-toggle="dropdown" aria-expanded="true">
-                    {{list.selected.value}}
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="{{list.selected.name}}">
-                    <li role="presentation" ng-repeat="item in list.itens track by $index">
-                        <a role="menuitem" tabindex="-1" ng-click="getLink(item.key, list.id)">{{ item.value }}</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-    </div> -->
-            
-    <!-- <div class="col-md-2 bs-docs-sidebar-report without-padding bs-docs-sidebar-border">
-
-        <nav class="bs-docs-sidebar">
-            <ul class="nav nav-stacked fixed">
-                <li ng-repeat="item in link.links track by $index">
-                    <a ng-click="getPages(link.selected, item)">
-                        <i class="glyphicon glyphicon-arrow-right icon-sidebar"></i>{{ item.value }}
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div> -->
-
-    <div class="col-md-12 report"> 
+    <div class="col-md-12 report" ng-if="existRegisters() && !searching"> 
     
-    	<nav class="text-center">
-    
+    	<nav class="text-center">    
 	    	<pagination ng-if="pagination.groups.length" 
 	    		total-items="pagination.totalItens" 
 	    		ng-model="pagination.currentPage" 
@@ -118,17 +48,18 @@
 	    		next-text="&rsaquo;" 
 	    		first-text="&laquo;" 
 	    		last-text="&raquo;"></pagination>
-	    </nav>		
+	    </nav>	
 
-        <div class="container-fluid page" ng-class="{ portrait_a4: configuration.page.layout === 'portrait' && configuration.page.size === 'a4',
-        											  landscape_a4: configuration.page.layout === 'landscape' && configuration.page.size === 'a4' }">
+        <div class="container-fluid page" 
+        	 ng-class="{ portrait_a4: configuration.page.layout === 'portrait' && configuration.page.size === 'a4',
+        	    		 landscape_a4: configuration.page.layout === 'landscape' && configuration.page.size === 'a4' }">
         
             <layout configuracao="visio.layout.configuration" preview="false">
-                <div id="header-title" class="col-lg-12" ng-show="report.title">
+                <!-- <div id="header-title" class="col-lg-12" ng-show="report.title">
                     <div class="page-header">
                         <h3>{{ report.title }}</h3>
                     </div>
-                </div>
+                </div> -->
                 <div block="container.type" columns="container.column" lines="0" group="false" line-height="visio.layout.configuration.full.lineHeight" preview-block="true" ng-repeat="container in visio.layout.containers" vertical-align="container.type==='header'">
                     <div block="component.name" columns="component.column" lines="0" line-height="visio.layout.configuration.full.lineHeight" preview-block="true" ng-repeat="component in container.components">
                         <widget data="component.data" type="component.type"></widget>

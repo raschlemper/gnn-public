@@ -35,6 +35,21 @@
     padding: 10px;
 }
 
+.info-report {
+	background-color: #f5f5f5;
+    margin-top: -30px;
+    padding: 40px;
+    height: 100%;
+}
+
+.info-report .jumbotron {
+    padding: 40px;
+}
+
+.link-click {
+	cursor: pointer;
+}
+
 @media (min-width: 768px) {
 	.main-report {
 	  	height: calc((842px * 0.5) + 80px);
@@ -108,8 +123,25 @@
 }
 
 .btn-group-right {
-    float: right!important;
+    float: right !important;
     margin-right: 5px;
+}
+
+.input-date {
+ 	padding-left: 15px !important;
+ 	padding-right: 15px !important;	
+}
+
+.text-required {
+	margin-right: 5px;
+}
+
+.filter-error {
+	font-size: 10pt;
+}
+
+.dropdown-filter {
+	left: initial !important;
 }
 
 /* Congiguration */
@@ -117,4 +149,6 @@
 .radio-inline {
     padding-top: 7px;
 }
+
+
 
