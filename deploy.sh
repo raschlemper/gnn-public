@@ -1,3 +1,3 @@
 mvn clean package -DskipTests=true -P prod
 cd target
-cp vision.war ~/desenvolvimento/jboss/server/default/deploy/gennera
+cp vision.war ~/Desenvolvimento/jboss/server/default/deploy/gennera
