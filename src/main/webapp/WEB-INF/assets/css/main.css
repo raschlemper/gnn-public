@@ -1,16 +1,45 @@
-
-.user-bar{	
-	background-color: #FFF;
-	background-size: 100% auto;
-	margin-bottom: 10px;
-	box-shadow: 0px 0px 4px #3C3C3C;
+.user-bar {
+    background-color: #FFF;
+    background-size: 100% auto;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 4px #3C3C3C;
 }
 
-.footer-bar{
-	background-color: #FFF;
-	background-size: 100% auto;
-	margin-top: 10px;
-	box-shadow: 0px 0px 4px #3C3C3C;
+.footer-bar {
+    background-color: #FFF;
+    background-size: 100% auto;
+    margin-top: 10px;
+    box-shadow: 0px 0px 4px #3C3C3C;
+}
+
+.box-header-btns {
+    top: 2px;
+    right: 10px;
+    cursor: pointer;
+    position: absolute;
+    font-size: 11px;
+}
+
+.box {
+    height: 100%;
+    border: 1px solid #CCC;
+    background-color: #FFF;
+}
+
+.box-header {
+    background-color: #EEE;
+    padding: 0px 30px 0px 10px;
+    border-bottom: 1px solid #CCC;
+    cursor: move;
+    position: relative;
+}
+
+.box-content {
+    padding: 10px;
+}
+
+.tab-margin-content {
+    margin-top: 30px;
 }
 
 .centered-on-screen {
@@ -29,68 +58,76 @@
     padding-top: 10px;
     font-size: 22px;
 }
-.loading > i, .loading > span {
+
+.loading > i,
+.loading > span {
     display: block;
 }
 
 .loading > i {
     font-size: 30px;
 }
-.loading > i, .loading > span {
+
+.loading > i,
+.loading > span {
     display: block;
 }
 
-a:hover, a:focus{
+a:hover,
+a:focus {
     text-decoration: none !important;
 }
 
-.modal {z-index: 1050;}
+.modal {
+    z-index: 1050;
+}
 
-.user-panel{
+.user-panel {
     box-shadow: 1px 1px 5px #3C3C3C;
 }
 
 @font-face {
-  font-family: 'Glyphicons Halflings';
-
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.modal-backdrop{
-  position: fixed !important;
+.modal-backdrop {
+    position: fixed !important;
 }
 
-.wide_buttons .button{
-  width: 100%;
-  height: 100%;
-  display: block;
-  float: left;
-  border-radius:3px;
-  margin: 10px 0px 10px 0px;
-  padding:15px 0px;
-  text-align:center;
-  text-decoration:none;
-  font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #ecf0f1;
-}
-.button:active{
-  position:relative;
-  top:6px;
+.wide_buttons .button {
+    width: 100%;
+    height: 100%;
+    display: block;
+    float: left;
+    border-radius: 3px;
+    margin: 10px 0px 10px 0px;
+    padding: 15px 0px;
+    text-align: center;
+    text-decoration: none;
+    font: 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ecf0f1;
 }
 
-.gray{
-  box-shadow: 0px 6px #7f8c8d;
-  background: #95a5a6;
-}
-.gray:active{
-  box-shadow: 0px 0px #7f8c8d;
-  background: #7f8c8d;
+.button:active {
+    position: relative;
+    top: 6px;
 }
 
-.gray-selected{
-  box-shadow: 0px 0px #7f8c8d;
-  background: #7f8c8d;
+.gray {
+    box-shadow: 0px 6px #7f8c8d;
+    background: #95a5a6;
+}
+
+.gray:active {
+    box-shadow: 0px 0px #7f8c8d;
+    background: #7f8c8d;
+}
+
+.gray-selected {
+    box-shadow: 0px 0px #7f8c8d;
+    background: #7f8c8d;
 }
 
 .browsehappy {
@@ -201,6 +238,8 @@ select {
 #sidebar .sidebar-inner .si-inner {
     width: 250px;
 }
+
+
 /*.page-sidebar,
 .page-sidebar-menu {
     list-style: outside none none;
@@ -234,11 +273,11 @@ select {
 body {
     padding: 0;
     margin: 0px;
-	font-family: "OpenSans","Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 16px;
-	line-height: 24px;
-	color: #444;
-	background-color: #E0E0E0;
+    font-family: "OpenSans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #444;
+    background-color: #E0E0E0;
 }
 
 .fixed-margin {
@@ -258,7 +297,7 @@ body {
 
 .pontilhado {
     border: 1px dashed #000;
-    text-align:center;
+    text-align: center;
     background-color: #FFF;
     padding: 10px;
     margin-bottom: 10px;
@@ -274,6 +313,8 @@ body {
     padding: 0px !important;
     padding-right: 2px !important;
 }
+
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 
 .header,
@@ -282,12 +323,16 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+
+
 /* Custom page header */
 
 .header {
     border-bottom: 1px solid #e5e5e5;
     margin-bottom: 10px;
 }
+
+
 /* Make the masthead heading the same height as the navigation */
 
 .header h3 {
@@ -296,6 +341,8 @@ body {
     line-height: 40px;
     padding-bottom: 19px;
 }
+
+
 /* Custom page footer */
 
 .footer {
@@ -307,6 +354,8 @@ body {
 .container-narrow > hr {
     margin: 30px 0;
 }
+
+
 /* Main marketing message and sign up button */
 
 .jumbotron {
@@ -318,6 +367,8 @@ body {
     font-size: 21px;
     padding: 14px 24px;
 }
+
+
 /* Supporting marketing content */
 
 .marketing {
@@ -327,6 +378,8 @@ body {
 .marketing p + h4 {
     margin-top: 28px;
 }
+
+
 /* Responsive: Portrait tablets and up */
 
 @media screen and (min-width: 768px) {
@@ -334,7 +387,6 @@ body {
         /*max-width: 730px;*/
     }
     /* Remove the padding we set earlier */
-
     .header,
     .marketing,
     .footer {
@@ -342,12 +394,10 @@ body {
         padding-right: 0;
     }
     /* Space out the masthead */
-
     .header {
         margin-bottom: 30px;
     }
     /* Remove the bottom border on the jumbotron for visual effect */
-
     .jumbotron {
         border-bottom: 0;
     }
@@ -384,9 +434,8 @@ body {
         background-color: #ddd;
     }
     .layout-number {
-        color: #fff;
-        font-size: 25px;
-        font-weight: 400;
+        font-size: 35px;
+        font-weight: 300;
         line-height: 1.1;
     }
     #layout ul {
@@ -423,7 +472,6 @@ body {
     .vertical-center {
         min-height: 100%;
         /* Fallback for vh unit */
-
         min-height: 100%;
         /* You might also want to use
                           'height' property instead.
@@ -436,14 +484,12 @@ body {
                           In this case the parent of '.vertical-center'
                           is the <body> element */
         /* Make it a flex container */
-
         display: -webkit-box;
         display: -moz-box;
         display: -ms-flexbox;
         display: -webkit-flex;
         display: flex;
         /* Align the bootstrap's container vertically */
-
         -webkit-box-align: center;
         -webkit-align-items: center;
         -moz-box-align: center;
@@ -451,26 +497,25 @@ body {
         align-items: center;
         /* In legacy web browsers such as Firefox 9
        we need to specify the width of the flex container */
-
         width: 100%;
         /* Also 'margin: 0 auto' doesn't have any effect on flex items in such web browsers
        hence the bootstrap's container won't be aligned to the center anymore.
 
        Therefore, we should use the following declarations to get it centered again */
-
         -webkit-box-pack: center;
         -moz-box-pack: center;
         -ms-flex-pack: center;
         -webkit-justify-content: center;
         justify-content: center;
     }
-   /*  .report {
+    /*  .report {
         background-color: #f5f5f5;
         margin-top: -30px;
 
         padding: 40px;
     } */
 }
+
 
 /* .report .page-landscape {
     background-color: #fff;
@@ -492,12 +537,12 @@ body {
     width: 100%;
 }
 
-/* .main-report {
-	margin: 20px;
-	margin-left: -30px;
-	margin-right: -30px;
-} */
 
+/* .main-report {
+    margin: 20px;
+    margin-left: -30px;
+    margin-right: -30px;
+} */
 
 .shadow {
     -webkit-box-shadow: 0px 0px 30px -10px rgba(0, 0, 0, 0.75);
