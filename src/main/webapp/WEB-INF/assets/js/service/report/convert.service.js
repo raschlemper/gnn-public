@@ -36,7 +36,7 @@ app.factory("ConvertService", ['$filter', 'DataGrouperService', function($filter
     }
 
     var getFieldValue = function(registers, field) {
-        //applyFilter(register, field);
+//        applyFilter(registers, field);
         return {
             name: field.label,
             key: _.pick(registers, field.to),
